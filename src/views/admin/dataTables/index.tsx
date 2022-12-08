@@ -1,64 +1,127 @@
-/*!
-  _   _  ___  ____  ___ ________  _   _   _   _ ___   
- | | | |/ _ \|  _ \|_ _|__  / _ \| \ | | | | | |_ _| 
- | |_| | | | | |_) || |  / / | | |  \| | | | | || | 
- |  _  | |_| |  _ < | | / /| |_| | |\  | | |_| || |
- |_| |_|\___/|_| \_\___/____\___/|_| \_|  \___/|___|
-                                                                                                                                                                                                                                                                                                                                       
-=========================================================
-* Horizon UI - v1.1.0
-=========================================================
-
-* Product Page: https://www.horizon-ui.com/
-* Copyright 2022 Horizon UI (https://www.horizon-ui.com/)
-
-* Designed and Coded by Simmmple
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-
 // Chakra imports
-import { Box, SimpleGrid } from "@chakra-ui/react";
-import DevelopmentTable from "views/admin/dataTables/components/DevelopmentTable";
-import CheckTable from "views/admin/dataTables/components/CheckTable";
-import ColumnsTable from "views/admin/dataTables/components/ColumnsTable";
-import ComplexTable from "views/admin/dataTables/components/ComplexTable";
 import {
-  columnsDataDevelopment,
-  columnsDataCheck,
-  columnsDataColumns,
-  columnsDataComplex,
-} from "views/admin/dataTables/variables/columnsData";
-import tableDataDevelopment from "views/admin/dataTables/variables/tableDataDevelopment.json";
-import tableDataCheck from "views/admin/dataTables/variables/tableDataCheck.json";
-import tableDataColumns from "views/admin/dataTables/variables/tableDataColumns.json";
-import tableDataComplex from "views/admin/dataTables/variables/tableDataComplex.json";
+  Box,
+  SimpleGrid,
+  Flex,
+  FormControl,
+  FormLabel,
+  useColorModeValue,
+  Text,
+  Input,
+  Button,
+} from "@chakra-ui/react";
+
+//custom components
+import Card from "../../../components/card/Card";
+import Upload from "./components/Upload";
+
 import React from "react";
 
 export default function Settings() {
   // Chakra Color Mode
+  const textColor = useColorModeValue("navy.700", "white");
+  const brandStars = useColorModeValue("brand.500", "brand.400");
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
       <SimpleGrid
-        mb='20px'
+        mb="20px"
         columns={{ sm: 1, md: 2 }}
-        spacing={{ base: "20px", xl: "20px" }}>
-        <DevelopmentTable
-          columnsData={columnsDataDevelopment}
-          tableData={tableDataDevelopment}
-        />
-        <CheckTable columnsData={columnsDataCheck} tableData={tableDataCheck} />
-        <ColumnsTable
-          columnsData={columnsDataColumns}
-          tableData={tableDataColumns}
-        />
-        <ComplexTable
-          columnsData={columnsDataComplex}
-          tableData={tableDataComplex}
-        />
+        spacing={{ base: "20px", xl: "20px" }}
+      >
+        <Card>
+          <Flex
+            direction="column"
+            w={{ base: "100%", md: "420px" }}
+            maxW="100%"
+            background="transparent"
+            borderRadius="15px"
+            mx={{ base: "auto", lg: "unset" }}
+            me="auto"
+            mb={{ base: "20px", md: "auto" }}
+          >
+            <FormControl>
+              <FormLabel
+                display="flex"
+                ms="4px"
+                fontSize="sm"
+                fontWeight="500"
+                color={textColor}
+                mb="8px"
+              >
+                Numero de cedula<Text color={brandStars}>*</Text>
+              </FormLabel>
+
+              <Input
+                isRequired={true}
+                fontSize="sm"
+                ms={{ base: "0px", md: "0px" }}
+                type="text"
+                mb="24px"
+                fontWeight="500"
+                size="lg"
+              />
+
+              <FormLabel
+                display="flex"
+                ms="4px"
+                fontSize="sm"
+                fontWeight="500"
+                color={textColor}
+                mb="8px"
+              >
+                Nombres completos<Text color={brandStars}>*</Text>
+              </FormLabel>
+              <Input
+                isRequired={true}
+                fontSize="sm"
+                ms={{ base: "0px", md: "0px" }}
+                type="text"
+                mb="24px"
+                fontWeight="500"
+                size="lg"
+              />
+              <FormLabel
+                display="flex"
+                ms="4px"
+                fontSize="sm"
+                fontWeight="500"
+                color={textColor}
+                mb="8px"
+              >
+                Apellidos completos<Text color={brandStars}>*</Text>
+              </FormLabel>
+              <Input
+                isRequired={true}
+                fontSize="sm"
+                ms={{ base: "0px", md: "0px" }}
+                type="text"
+                mb="24px"
+                fontWeight="500"
+                size="lg"
+              />
+              <Upload
+                gridArea={{
+                  base: "3 / 1 / 4 / 2",
+                  lg: "1 / 3 / 2 / 4",
+                }}
+                minH={{ base: "auto", lg: "420px", "2xl": "365px" }}
+                pe="20px"
+                pb={{ base: "0", lg: "20px" }}
+              />
+              <Button
+                fontSize="sm"
+                variant="brand"
+                fontWeight="500"
+                w="100%"
+                h="50"
+                mb="24px"
+              >
+                Submit
+              </Button>
+            </FormControl>
+          </Flex>
+          {/* <CheckTable columnsData={columnsDataCheck} tableData={tableDataCheck} /> */}
+        </Card>
       </SimpleGrid>
     </Box>
   );
