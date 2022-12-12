@@ -1,7 +1,6 @@
 import { ChangeEventHandler, useRef } from "react";
 import { Box, Input, WrapItem, SimpleGrid, Button } from "@chakra-ui/react";
 import Card from "components/card/Card";
-import { compareImage } from "Services/user_detect";
 
 export default function FormImage(props: {
   onChangePicture: ChangeEventHandler<HTMLInputElement>;
@@ -10,6 +9,7 @@ export default function FormImage(props: {
   onChangePictureCompare: ChangeEventHandler<HTMLInputElement>;
   label: string;
   onSubmit: () => void;
+  loading: boolean;
 }) {
   // Extract Props
   const {
@@ -19,6 +19,7 @@ export default function FormImage(props: {
     onChangePictureCompare,
     label,
     onSubmit,
+    loading,
     ...rest
   } = props;
 
@@ -83,6 +84,7 @@ export default function FormImage(props: {
       </SimpleGrid>
       <Box display={"flex"} mt="4">
         <Button
+          isLoading={loading}
           type="button"
           borderRadius={"md"}
           variant="darkBrand"

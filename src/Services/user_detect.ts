@@ -1,6 +1,6 @@
 const URI = "http://localhost:8000/api/v0.1";
 export const compareImage = async (body: any) => {
-  let data = await fetch(`${URI}/userdetect/compareImage`, {
+  let data = await fetch(`${URI}/userdetect/compareImageFaceRecognition`, {
     method: "POST",
     body: body,
   });

@@ -21,6 +21,7 @@ import FormUploadImage from "./components/FormImage";
 export default function CompareImage() {
   //
   // const { isOpen, onOpen, onClose } = useDisclosure();
+  const [Loading, setLoading] = useState<boolean>(false);
   const [Match, setMatch] = useState<number>(0);
   const [Data, setData] = useState<any>({});
   const [OpenModal, setOpen] = useState<boolean>(false);
@@ -58,19 +59,22 @@ export default function CompareImage() {
 
     formData.append("image_original", PictureChange);
     formData.append("image_compare", PictureCompare);
-
+    setLoading(true)
     compareImage(formData)
       .then((res) => {
         setImageServer(res?.detect.url);
         setMatch(res?.detect.match.toFixed(2));
         setData(res?.detect);
         setOpen(true);
+        setLoading(false);
       })
       .catch((err) => console.log(err));
   };
   const onClose = () => {
     deleteImage()
-      .then((res) => {})
+      .then((res) => {
+        setImageServer("");
+      })
       .catch((err) => console.log(err));
     setOpen(false);
   };
@@ -83,6 +87,7 @@ export default function CompareImage() {
         urlImage={ImageData}
         label="Comparar"
         onSubmit={handleCompare}
+        loading={Loading}
       />
       <Modal isOpen={OpenModal} onClose={onClose}>
         <ModalOverlay />
@@ -90,17 +95,13 @@ export default function CompareImage() {
           <ModalHeader>Modal Title</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Img src={ImageServer} width="100%" height="100%" />
+            <Img src={Data.url} width="100%" height="100%" />
             <Box display="flex" mt="4">
               <SimpleGrid columns={2} spacingX="4">
                 <Text fontWeight={"medium"}>Match : </Text>{" "}
                 <Text>{Match} %</Text>
-                <Text fontWeight={"medium"}>N Puntos clave 1 : </Text>
-                <Text>{Data.keypoints_1}</Text>
-                <Text fontWeight={"medium"}>N Puntos clave 2 : </Text>
-                <Text>{Data.keypoints_2}</Text>
-                <Text fontWeight={"medium"}>Puntos coinciden : </Text>
-                <Text>{Data.good_pointsKeys}</Text>
+                <Text fontWeight={"medium"}>Coinciden: </Text>
+                <Text>{Data.compare}</Text>
               </SimpleGrid>
             </Box>
           </ModalBody>
