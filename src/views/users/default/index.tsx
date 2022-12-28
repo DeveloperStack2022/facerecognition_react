@@ -31,7 +31,7 @@ export default function ViewInfoUsers() {
         gap={{ base: "20px", xl: "20px" }}
       >
         <Banner
-          banner="http://localhost:8000/api/v0.1/userpersistencia/image/1722039789.jpg"
+          banner={`http://localhost:8000/api/v0.1/userpersistencia/image/${id}.jpeg`}
           name="Nombre test"
         />
       </Grid>

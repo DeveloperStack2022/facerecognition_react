@@ -53,7 +53,9 @@ export default function Dashboard(props: { [x: string]: any }) {
     return activeNavbar;
   };
   const getRoutes = (routes: RoutesType[]): any => {
-    return routes.map((route: RoutesType, key: any) => {
+    // console.log();
+    let paths: RoutesType[] = routes.filter((elem) => elem.layout !== "/auth");
+    return paths.map((route: RoutesType, key: any) => {
       if (route.layout === "/admin") {
         return (
           <Route
@@ -69,6 +71,10 @@ export default function Dashboard(props: { [x: string]: any }) {
   };
   document.documentElement.dir = "ltr";
   const { onOpen } = useDisclosure();
+  const getRoutesAdmin = (routes: RoutesType[]): any => {
+    let paths: RoutesType[] = routes.filter((elem) => elem.layout !== "/auth");
+    return paths;
+  };
   return (
     <Box>
       <SidebarContext.Provider
@@ -77,7 +83,7 @@ export default function Dashboard(props: { [x: string]: any }) {
           setToggleSidebar,
         }}
       >
-        <Sidebar routes={routes} display="none" {...rest} />
+        <Sidebar routes={getRoutesAdmin(routes)} display="none" {...rest} />
         <Box
           float="right"
           minHeight="100vh"

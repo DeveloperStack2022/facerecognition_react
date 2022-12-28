@@ -1,11 +1,5 @@
 import { Icon } from "@chakra-ui/react";
-import {
-  MdBarChart,
-  MdPerson,
-  MdHome,
-  MdLock,
-  MdVideoCameraFront,
-} from "react-icons/md";
+import { MdHome, MdLock, MdVideoCameraFront, MdUpload } from "react-icons/md";
 import { HiUsers } from "react-icons/hi";
 import { FaUserPlus } from "react-icons/fa";
 import { BsCardImage } from "react-icons/bs";
@@ -16,6 +10,7 @@ import NFTMarketplace from "views/admin/marketplace";
 import Profile from "views/admin/profile";
 import DataTables from "views/admin/dataTables";
 import RTL from "views/admin/rtl";
+import RegistroUsers from "views/admin/RegistroUsers";
 
 //UserImports
 import VideoStream from "views/users/VideoStream";
@@ -36,7 +31,7 @@ const routes = [
     name: "Upload User",
     layout: "/admin",
     path: "/nft-marketplace",
-    icon: <Icon as={FaUserPlus} width="20px" height="20px" color="inherit" />,
+    icon: <Icon as={MdUpload} width="20px" height="20px" color="inherit" />,
     component: DataTables,
     secondary: true,
   },
@@ -51,30 +46,38 @@ const routes = [
         color="inherit"
       />
     ),
-    path: "/videoStream",
+    path: "/video-stream",
     component: VideoStream,
   },
   {
     name: "Comparar imagenes",
     layout: "/admin",
-    path: "/compareImages",
+    path: "/comparar-images",
     icon: <Icon as={BsCardImage} width="20px" height="20px" color="inherit" />,
     component: CompareImage,
+    secondary: true,
+  },
+  {
+    name: "Registro users",
+    layout: "/admin",
+    path: "/registro-users",
+    icon: <Icon as={FaUserPlus} width="20px" height="20px" color="inherit" />,
+    component: RegistroUsers,
   },
   {
     name: "Sign In",
-    layout: "/admin",
+    layout: "/auth",
     path: "/sign-in",
     icon: <Icon as={MdLock} width="20px" height="20px" color="inherit" />,
-    component: NFTMarketplace,
+    component: SignInCentered,
   },
-  {
-    name: "RTL Admin",
-    layout: "/rtl",
-    path: "/rtl-default",
-    icon: <Icon as={MdHome} width="20px" height="20px" color="inherit" />,
-    component: RTL,
-  },
+  // {
+  //   name: "RTL Admin",
+  //   layout: "/rtl",
+  //   path: "/rtl-default",
+  //   icon: <Icon as={MdHome} width="20px" height="20px" color="inherit" />,
+  //   component: RTL,
+  // },
 ];
 
 export default routes;

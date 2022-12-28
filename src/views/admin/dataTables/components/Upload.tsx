@@ -1,12 +1,6 @@
+import { useRef } from "react";
 // Chakra imports
-import {
-  Box,
-  Button,
-  Flex,
-  Icon,
-  Text,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, Flex, Icon, Text, useColorModeValue } from "@chakra-ui/react";
 // Custom components
 
 // Assets
@@ -19,19 +13,21 @@ export default function Upload(props: {
   [x: string]: any;
 }) {
   const { used, total, ...rest } = props;
+
   // Chakra Color Mode
-  const textColorPrimary = useColorModeValue("secondaryGray.900", "white");
   const brandColor = useColorModeValue("brand.500", "white");
+  const textColorPrimary = useColorModeValue("secondaryGray.900", "white");
   const textColorSecondary = "gray.400";
+
   return (
     <Flex h="100px" direction={{ base: "column", "2xl": "row" }} mb="4">
-      <Dropzone
+      {/* <Dropzone
         w={{ base: "100%", "2xl": "268px" }}
         me="36px"
         maxH={{ base: "60%", lg: "50%", "2xl": "100%" }}
         minH={{ base: "100%", lg: "100%", "2xl": "100%" }}
         content={
-          <Box>
+          <Box onClick={handleClick}>
             <Icon as={MdUpload} w="40px" h="40px" color={brandColor} />
             <Flex justify="center" mx="auto" mb="12px">
               <Text fontSize="md" fontWeight="700" color={brandColor}>
@@ -43,7 +39,7 @@ export default function Upload(props: {
             </Text>
           </Box>
         }
-      />
+      /> */}
     </Flex>
   );
 }

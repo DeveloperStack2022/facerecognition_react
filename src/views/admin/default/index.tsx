@@ -7,12 +7,17 @@ import { Box, SimpleGrid } from "@chakra-ui/react";
 
 import CheckTable from "views/admin/default/components/CheckTable";
 import { columnsDataCheck } from "views/admin/default/variables/columnsData";
+//
+import di from "di";
 
 export default function UserReports() {
   const dispatch = useAppDispatch();
   const { users } = useAppSelector((state) => state.users);
   useEffect(() => {
-    dispatch(getProducts());
+    console.log(di.session.verifyToken());
+    if (users.length == 0) {
+      dispatch(getProducts());
+    }
     return () => {};
   }, []);
 
@@ -21,13 +26,6 @@ export default function UserReports() {
       <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
         <CheckTable columnsData={columnsDataCheck} tableData={users} />
       </SimpleGrid>
-      {/* <img
-        src={
-          "http://localhost:8000/api/v0.1/userpersistencia/detectFaceRecognetion"
-        }
-        width="200px"
-        height="200px"
-      /> */}
     </Box>
   );
 }
