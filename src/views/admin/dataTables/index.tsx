@@ -73,43 +73,33 @@ export default function Settings() {
       console.log("handle submite");
       formData.append("image", picture);
       let response = await di.user.add(formData);
-      let data_ser = await response?.json();
-      console.log(data_ser);
-      // console.log(data);
-      // const resp = await fetch(
-      //   `http://localhost:8000/api/v0.1/userpersistencia/addImage`,
-      //   {
-      //     method: "POST",
-      //     body: formData,
-      //   }
-      // );
-      // let status_response = response.status;
-      // let data_response = await response.json();
-      // if (status_response >= 400 && status_response < 500) {
-      //   setMessageServer(data_response);
 
-      //   Swal.fire({
-      //     title: "Error",
-      //     showConfirmButton: true,
-      //     text: `${data_response?.detail}`,
-      //     confirmButtonText: "OK",
-      //     confirmButtonColor: "#422AFB",
-      //     icon: "error",
-      //   });
-      //   return;
-      // }
-      // Swal.fire({
-      //   title: "Correcto",
-      //   showConfirmButton: true,
-      //   text: `Usuario creado exitosamente`,
-      //   confirmButtonText: "OK",
-      //   confirmButtonColor: "#422AFB",
-      //   icon: "success",
-      // }).then((result) => {
-      //   if (result.isConfirmed) {
-      //     history.push("/");
-      //   }
-      // });
+      if (response?.status >= 400 && response?.status < 500) {
+        let data_response = await response?.json();
+        setMessageServer(data_response);
+        Swal.fire({
+          title: "Error",
+          showConfirmButton: true,
+          text: `${data_response?.detail}`,
+          confirmButtonText: "OK",
+          confirmButtonColor: "#422AFB",
+          icon: "error",
+        });
+        return;
+      }
+
+      Swal.fire({
+        title: "Correcto",
+        showConfirmButton: true,
+        text: `Usuario creado exitosamente`,
+        confirmButtonText: "OK",
+        confirmButtonColor: "#422AFB",
+        icon: "success",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          history.push("/");
+        }
+      });
     })(e);
   };
   return (

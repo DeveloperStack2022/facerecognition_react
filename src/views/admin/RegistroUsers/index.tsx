@@ -34,6 +34,11 @@ export default function RegistroUsers() {
   // Chakra color mode
   const textColor = useColorModeValue("navy.700", "white");
   const brandStars = useColorModeValue("brand.500", "brand.400");
+  const borderCard = useColorModeValue(
+    "secondaryGray.100",
+    "rgba(135, 140, 189, 0.3)"
+  );
+  const bgText = useColorModeValue("secondaryGray.300", "navy.900");
 
   const sendData = (e: FormEvent<HTMLInputElement>) => {
     handleSubmit(async (data) => {
@@ -43,7 +48,8 @@ export default function RegistroUsers() {
         username: data.username,
         rol: data.rol,
       };
-      await di.session.register(user_register);
+      let response = await di.session.register(user_register);
+      console.log(response);
     })(e);
   };
 
@@ -160,8 +166,26 @@ export default function RegistroUsers() {
             },
           })}
         />
-        <Card mb="24px">
-          <Text color={textColor} fontWeight="700" fontSize={"md"} mb="2">
+        <Card
+          mb="24px"
+          bg="transparent"
+          borderColor={borderCard}
+          borderWidth="2px"
+          borderStyle={"solid"}
+          borderRadius="md"
+          position="relative"
+        >
+          <Text
+            position="absolute"
+            top="-12px"
+            left="20px"
+            color={textColor}
+            fontWeight="500"
+            fontSize={"md"}
+            backgroundColor={bgText}
+            width="140px"
+            textAlign={"center"}
+          >
             Selecciona el rol
           </Text>
           <Controller

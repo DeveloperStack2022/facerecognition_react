@@ -6,7 +6,6 @@ import { AuthContext } from "contexts/auth_context";
 import {
   Box,
   Button,
-  Checkbox,
   Flex,
   FormControl,
   FormLabel,
@@ -20,6 +19,7 @@ import {
 } from "@chakra-ui/react";
 // Custom components
 import DefaultAuth from "layouts/auth/Default";
+import Card from "components/card/Card";
 // Assets
 import illustration from "assets/img/auth/auth.png";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
@@ -48,6 +48,7 @@ function SignIn() {
   const textColor = useColorModeValue("navy.700", "white");
   const textColorSecondary = "gray.400";
   const brandStars = useColorModeValue("brand.500", "brand.400");
+  const cardBgColor = useColorModeValue("red.200", "red.600");
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
 
@@ -89,6 +90,11 @@ function SignIn() {
             Ingrese su email y contraseña para iniciar session!
           </Text>
         </Box>
+        {!context.error.success && (
+          <Card bg={cardBgColor} borderRadius="md">
+            <Text color={textColor}>{context.error.message}</Text>
+          </Card>
+        )}
         <Flex
           zIndex="2"
           direction="column"
