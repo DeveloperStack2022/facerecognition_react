@@ -17,4 +17,13 @@ export default class UserRepository implements IUserRepository {
     });
     return response;
   }
+  async searchByImage(data: any): Promise<any> {
+    const response = await this.httpFormData.request({
+      url: "http://localhost:8000/api/v0.1/userdetect/compareImageFaceRecognitionTwo",
+      method: "POST",
+      body: data,
+      headers: {},
+    });
+    return response;
+  }
 }

@@ -1,5 +1,11 @@
 import { Icon } from "@chakra-ui/react";
-import { MdHome, MdLock, MdVideoCameraFront, MdUpload } from "react-icons/md";
+import {
+  MdHome,
+  MdLock,
+  MdVideoCameraFront,
+  MdUpload,
+  MdImageSearch,
+} from "react-icons/md";
 import { HiUsers } from "react-icons/hi";
 import { FaUserPlus } from "react-icons/fa";
 import { BsCardImage } from "react-icons/bs";
@@ -11,6 +17,7 @@ import Profile from "views/admin/profile";
 import DataTables from "views/admin/dataTables";
 import RTL from "views/admin/rtl";
 import RegistroUsers from "views/admin/RegistroUsers";
+import SearchByImage from "views/admin/searchImage";
 
 //UserImports
 import VideoStream from "views/users/VideoStream";
@@ -71,13 +78,15 @@ const routes = [
     icon: <Icon as={MdLock} width="20px" height="20px" color="inherit" />,
     component: SignInCentered,
   },
-  // {
-  //   name: "RTL Admin",
-  //   layout: "/rtl",
-  //   path: "/rtl-default",
-  //   icon: <Icon as={MdHome} width="20px" height="20px" color="inherit" />,
-  //   component: RTL,
-  // },
+  {
+    name: "Search By Image",
+    layout: "/admin",
+    path: "/search-by-images",
+    icon: (
+      <Icon as={MdImageSearch} width="20px" height="20px" color="inherit" />
+    ),
+    component: SearchByImage,
+  },
 ];
 
 export default routes;

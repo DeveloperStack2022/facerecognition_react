@@ -1,19 +1,44 @@
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Box, Grid } from "@chakra-ui/react";
 //Redux
 import { useAppSelector } from "hooks/redux/hook";
 //Custom components
 import Banner from "views/users/default/components/Banner";
 
+import { getUserImage } from "features/user/services/user_services";
+
+type DataMetadata = {
+  sizeX: number;
+  sizeY: number;
+  image_base64: string;
+};
+
 export default function ViewInfoUsers() {
   const { users } = useAppSelector((state) => state.users);
   const { id } = useParams<{ id: string }>();
+  const [ObjectImageUrl, setObjectImageUrl] = useState<DataMetadata[]>([
+    { image_base64: "", sizeX: 0, sizeY: 0 },
+  ]);
+  // const [Size, setSize] = useState<{sizeX:number,sizeY:number}>({sizeX:0,sizeY:0})
 
   useEffect(() => {
-    if (users.length === 0) {
-      console.log(`Se va hacer la peticion ${id}`);
-    }
+    const get_images = async (num: string) => {
+      return await getUserImage(num);
+    };
+    get_images(id).then((res) => {
+      res?.payload.map((item: any) => {
+        // setSize({})
+        // Decode Base64
+        setObjectImageUrl([
+          {
+            image_base64: item.image_base64,
+            sizeX: item.sizeX,
+            sizeY: item.sizeY,
+          },
+        ]);
+      });
+    });
     return () => {};
   }, [id]);
 
@@ -30,10 +55,15 @@ export default function ViewInfoUsers() {
         }}
         gap={{ base: "20px", xl: "20px" }}
       >
-        <Banner
-          banner={`http://localhost:8000/api/v0.1/userpersistencia/image/${id}.jpeg`}
-          name="Nombre test"
-        />
+        {ObjectImageUrl.map((item, index) => (
+          <Banner
+            key={index}
+            banner={`data:image/jpeg;base64,${item.image_base64}`}
+            name="Nombre test"
+            sizeX={item.sizeX}
+            sizeY={item.sizeY}
+          />
+        ))}
       </Grid>
     </Box>
   );

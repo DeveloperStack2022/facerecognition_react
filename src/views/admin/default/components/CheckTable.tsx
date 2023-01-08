@@ -29,8 +29,6 @@ export default function CheckTable(props: {
   const { columnsData, tableData } = props;
 
   const textColor = useColorModeValue("secondaryGray.900", "white");
-  const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
-  const backgroundButton = useColorModeValue("brand.500", "white");
   return (
     <Card
       flexDirection="column"
@@ -73,7 +71,7 @@ export default function CheckTable(props: {
                     minW="36px"
                     h="36px"
                   >
-                    {item.images_id.length}
+                    {item.file.length}
                   </Button>
                 </RouterLink>
               </Td>

@@ -1,6 +1,16 @@
 import { ChangeEventHandler, useRef } from "react";
-import { Box, Input, WrapItem, SimpleGrid, Button } from "@chakra-ui/react";
+import {
+  Box,
+  Input,
+  WrapItem,
+  SimpleGrid,
+  Button,
+  Text,
+} from "@chakra-ui/react";
+//
 import Card from "components/card/Card";
+//Icons
+import { MdUpload } from "react-icons/md";
 
 export default function FormImage(props: {
   onChangePicture: ChangeEventHandler<HTMLInputElement>;
