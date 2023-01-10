@@ -6,6 +6,10 @@ import {
   SimpleGrid,
   Button,
   Text,
+  Icon,
+  Flex,
+  useColorModeValue,
+  Img,
 } from "@chakra-ui/react";
 //
 import Card from "components/card/Card";
@@ -32,7 +36,9 @@ export default function FormImage(props: {
     loading,
     ...rest
   } = props;
-
+  //Colors Custom
+  const brandColor = useColorModeValue("brand.500", "white");
+  const textColor = useColorModeValue("navy.700", "white");
   // React Hooks
   let hiddenInput = useRef<HTMLInputElement | null>(null);
   let hiddenInputCompare = useRef<HTMLInputElement>(null);
@@ -46,18 +52,35 @@ export default function FormImage(props: {
     <Card>
       <SimpleGrid columns={{ sm: 1, base: 2, md: 2, xl: 2 }} gap="20px">
         <WrapItem width="472px" height={"400px"}>
-          <Box
-            backgroundColor={"gray.100"}
-            as={"img"}
+          <Flex
             onClick={handleClick}
-            src={urlImage}
             w="100%"
             h="100%"
             objectFit={"cover"}
             _hover={{
               cursor: "pointer",
             }}
-          ></Box>
+            flexDirection="column"
+            alignItems={"center"}
+            justifyContent="center"
+            borderRadius={"md"}
+            border="1px"
+            borderColor={"gray.200"}
+          >
+            {!urlImage ? (
+              <>
+                <Icon as={MdUpload} w="40px" h="40px" color={brandColor} />
+                <Text fontSize="md" fontWeight="700" color={brandColor}>
+                  Subir imagen a comparar
+                </Text>
+                <Text fontSize="sm" fontWeight="500" color="secondaryGray.500">
+                  PNG, JPG and JPEG files are allowed
+                </Text>
+              </>
+            ) : (
+              <Img src={urlImage} width="100%" height={"100%"} />
+            )}
+          </Flex>
           <Input
             hidden
             accept="image/png,image/jpeg"
@@ -69,18 +92,35 @@ export default function FormImage(props: {
           />
         </WrapItem>
         <WrapItem width="472px" height={"400px"}>
-          <Box
-            backgroundColor={"gray.100"}
-            as={"img"}
+          <Flex
             onClick={handleClickCompare}
-            src={urlImageCompare}
             w="100%"
             h="100%"
             objectFit={"cover"}
             _hover={{
               cursor: "pointer",
             }}
-          ></Box>
+            flexDirection="column"
+            alignItems={"center"}
+            justifyContent="center"
+            borderRadius={"md"}
+            border="1px"
+            borderColor={"gray.200"}
+          >
+            {!urlImageCompare ? (
+              <>
+                <Icon as={MdUpload} w="40px" h="40px" color={brandColor} />
+                <Text fontSize="md" fontWeight="700" color={brandColor}>
+                  Subir imagen original
+                </Text>
+                <Text fontSize="sm" fontWeight="500" color="secondaryGray.500">
+                  PNG, JPG and JPEG files are allowed
+                </Text>
+              </>
+            ) : (
+              <Img src={urlImageCompare} width="100%" height={"100%"} />
+            )}
+          </Flex>
           <Input
             hidden
             accept="image/png,image/jpeg"
@@ -97,8 +137,9 @@ export default function FormImage(props: {
           isLoading={loading}
           type="button"
           borderRadius={"md"}
-          variant="darkBrand"
+          variant="brand"
           onClick={onSubmit}
+          isDisabled={!urlImageCompare || !urlImageCompare ? true : false}
         >
           {label}
         </Button>

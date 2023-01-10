@@ -18,6 +18,7 @@ import { compareImage, deleteImage } from "Services/user_detect";
 
 // Custom components
 import FormUploadImage from "./components/FormImage";
+import { features } from "process";
 export default function CompareImage() {
   //
   // const { isOpen, onOpen, onClose } = useDisclosure();
@@ -66,10 +67,17 @@ export default function CompareImage() {
         setMatch(res?.detect.match.toFixed(2));
         setData(res?.detect);
         setOpen(true);
+        // openWindows();
         setLoading(false);
       })
       .catch((err) => console.log(err));
   };
+
+  const openWindows = () => {
+    let mywindow = window.open("", "MsgWindow", "width=200,height=100");
+    mywindow.document.write(`<img src="${Data.url}"`);
+  };
+
   const onClose = () => {
     deleteImage()
       .then((res) => {

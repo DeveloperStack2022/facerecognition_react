@@ -87,6 +87,15 @@ const routes = [
     ),
     component: SearchByImage,
   },
+  {
+    name: "Profile",
+    layout: "/admin",
+    path: "/profile-test",
+    icon: (
+      <Icon as={MdImageSearch} width="20px" height="20px" color="inherit" />
+    ),
+    component: Profile,
+  },
 ];
 
 export default routes;

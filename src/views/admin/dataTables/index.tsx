@@ -22,6 +22,7 @@ import { useForm } from "react-hook-form";
 
 //custom components
 import Card from "../../../components/card/Card";
+import FormUploadUser from "./components/FormUploadUser";
 //
 type Inputs = {
   num_cedula: string;
@@ -104,13 +105,14 @@ export default function Settings() {
   };
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
-      <SimpleGrid
-        mb="20px"
-        columns={{ sm: 1, md: 2 }}
-        spacing={{ base: "20px", xl: "20px" }}
-      >
-        <Card>
-          <form onSubmit={submitForm}>
+      <Card>
+        <FormUploadUser />
+      </Card>
+    </Box>
+  );
+}
+
+/* <form onSubmit={submitForm}>
             <Flex
               direction="column"
               w={{ base: "100%", md: "auto" }}
@@ -297,10 +299,4 @@ export default function Settings() {
                 </Button>
               </FormControl>
             </Flex>
-          </form>
-          {/* <CheckTable columnsData={columnsDataCheck} tableData={tableDataCheck} /> */}
-        </Card>
-      </SimpleGrid>
-    </Box>
-  );
-}
+          </form> */
