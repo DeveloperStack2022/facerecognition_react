@@ -9,8 +9,10 @@ import {
   Thead,
   Tr,
   useColorModeValue,
+  Icon,
+  IconButton,
 } from "@chakra-ui/react";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import {
   SortingState,
   createColumnHelper,
@@ -20,7 +22,8 @@ import {
   flexRender,
 } from "@tanstack/react-table";
 import { Link as RouterLink } from "react-router-dom";
-
+//React Icons
+import { HiOutlineDocumentText } from "react-icons/hi";
 // Custom components
 import Card from "components/card/Card";
 import Menu from "components/menu/MainMenu";
@@ -39,7 +42,9 @@ export default function CheckTable(props: {
 }) {
   const { columnsData, tableData } = props;
   const [Sorting, setSorting] = useState<SortingState>([]);
+  //Color Mode
   const textColor = useColorModeValue("secondaryGray.900", "white");
+  // const iconButtonColor = useColorModeValue("")
 
   let defaultData = tableData;
 
@@ -81,7 +86,7 @@ export default function CheckTable(props: {
           color={textColor}
           letterSpacing={"normal"}
           fontWeight="normal"
-          fontSize={{ sm: "12px", lg: "md", base: "md" }}
+          fontSize={{ sm: "md", lg: "md", base: "md" }}
         >
           {info.getValue()}
         </Text>
@@ -100,17 +105,37 @@ export default function CheckTable(props: {
       ),
       cell: (info) => (
         <>
-          <RouterLink to={`/user/default/${info.row.original.numero_cedula}`}>
-            <Button
+          <Flex
+            justifyContent={"space-around"}
+            maxW={{ base: "150px", lg: "100%" }}
+            flexDirection={{ base: "row", sm: "column", lg: "row" }}
+            rowGap={{ base: "", sm: "1" }}
+          >
+            <IconButton
+              display={"flex"}
+              justifyContent="center"
+              alignItems={"center"}
               variant="action"
+              aria-label="Generate_"
+              icon={<HiOutlineDocumentText />}
               p="0px !important"
               borderRadius="50%"
-              minW="36px"
+              fontSize={{ lg: "lg", base: "lg", sm: "md" }}
+              w="36px"
               h="36px"
-            >
-              {info.getValue().length}
-            </Button>
-          </RouterLink>
+            />
+            <RouterLink to={`/user/default/${info.row.original.numero_cedula}`}>
+              <Button
+                variant="action"
+                p="0px !important"
+                borderRadius="50%"
+                minW="36px"
+                h="36px"
+              >
+                {info.getValue().length}
+              </Button>
+            </RouterLink>
+          </Flex>
         </>
       ),
     }),
