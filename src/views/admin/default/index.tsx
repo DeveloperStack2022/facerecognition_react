@@ -14,7 +14,7 @@ export default function UserReports() {
   const dispatch = useAppDispatch();
   const { users } = useAppSelector((state) => state.users);
   useEffect(() => {
-    console.log(di.session.verifyToken());
+    // console.log(di.session.verifyToken());
     if (users.length == 0) {
       dispatch(getProducts());
     }

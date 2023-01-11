@@ -27,7 +27,10 @@ import { HiOutlineDocumentText } from "react-icons/hi";
 // Custom components
 import Card from "components/card/Card";
 import Menu from "components/menu/MainMenu";
-
+//Store Slice  - Redux
+import { getUserPersisitencia } from "features/user_persistencia/user_persistenciaSlice";
+//Custom Hooks
+import { useAppDispatch, useAppSelector } from "hooks/redux/hook";
 type RowObj = {
   nombres: string;
   numero_cedula: string;
@@ -40,13 +43,27 @@ export default function CheckTable(props: {
   columnsData: any;
   tableData: any;
 }) {
+  //Redu
+  const dispatch = useAppDispatch();
+  const stateStatusUserPersistenciaR = useAppSelector(
+    (state) => state.user_persistencia
+  );
+
   const { columnsData, tableData } = props;
   const [Sorting, setSorting] = useState<SortingState>([]);
   //Color Mode
   const textColor = useColorModeValue("secondaryGray.900", "white");
   // const iconButtonColor = useColorModeValue("")
-
   let defaultData = tableData;
+
+  const handleClickDataInformation = (numero_cedula: string) => {
+    let result_ = stateStatusUserPersistenciaR.user_array.filter(
+      (elem) => elem.numero_cedula === numero_cedula
+    )[0];
+    if (!result_) {
+      dispatch(getUserPersisitencia(numero_cedula));
+    }
+  };
 
   const Columns = [
     columnHelper.accessor("numero_cedula", {
@@ -123,7 +140,11 @@ export default function CheckTable(props: {
               fontSize={{ lg: "lg", base: "lg", sm: "md" }}
               w="36px"
               h="36px"
+              onClick={() =>
+                handleClickDataInformation(info.row.original.numero_cedula)
+              }
             />
+
             <RouterLink to={`/user/default/${info.row.original.numero_cedula}`}>
               <Button
                 variant="action"
