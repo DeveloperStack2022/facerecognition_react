@@ -9,8 +9,10 @@ import {
   Thead,
   Tr,
   useColorModeValue,
-  Icon,
+  Box,
   IconButton,
+  Tooltip,
+  Icon,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import {
@@ -24,11 +26,14 @@ import {
 import { Link as RouterLink } from "react-router-dom";
 //React Icons
 import { HiOutlineDocumentText } from "react-icons/hi";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { FaAngleDoubleLeft, FaAngleDoubleRight } from "react-icons/fa";
 // Custom components
 import Card from "components/card/Card";
-import Menu from "components/menu/MainMenu";
+
 //Store Slice  - Redux
 import { getUserPersisitencia } from "features/user_persistencia/user_persistenciaSlice";
+import { change_user_detail } from "features/user_persistencia/user_persistenciaSlice";
 //Custom Hooks
 import { useAppDispatch, useAppSelector } from "hooks/redux/hook";
 type RowObj = {
@@ -43,7 +48,7 @@ export default function CheckTable(props: {
   columnsData: any;
   tableData: any;
 }) {
-  //Redu
+  //Redux
   const dispatch = useAppDispatch();
   const stateStatusUserPersistenciaR = useAppSelector(
     (state) => state.user_persistencia
@@ -62,7 +67,9 @@ export default function CheckTable(props: {
     )[0];
     if (!result_) {
       dispatch(getUserPersisitencia(numero_cedula));
+      return;
     }
+    dispatch(change_user_detail({ numero_cedula }));
   };
 
   const Columns = [
@@ -128,33 +135,36 @@ export default function CheckTable(props: {
             flexDirection={{ base: "row", sm: "column", lg: "row" }}
             rowGap={{ base: "", sm: "1" }}
           >
-            <IconButton
-              display={"flex"}
-              justifyContent="center"
-              alignItems={"center"}
-              variant="action"
-              aria-label="Generate_"
-              icon={<HiOutlineDocumentText />}
-              p="0px !important"
-              borderRadius="50%"
-              fontSize={{ lg: "lg", base: "lg", sm: "md" }}
-              w="36px"
-              h="36px"
-              onClick={() =>
-                handleClickDataInformation(info.row.original.numero_cedula)
-              }
-            />
-
-            <RouterLink to={`/user/default/${info.row.original.numero_cedula}`}>
-              <Button
+            <Tooltip label="Ver detalles">
+              <IconButton
+                display={"flex"}
+                justifyContent="center"
+                alignItems={"center"}
                 variant="action"
+                aria-label="Generate_"
+                icon={<HiOutlineDocumentText />}
                 p="0px !important"
                 borderRadius="50%"
-                minW="36px"
+                fontSize={{ lg: "lg", base: "lg", sm: "md" }}
+                w="36px"
                 h="36px"
-              >
-                {info.getValue().length}
-              </Button>
+                onClick={() =>
+                  handleClickDataInformation(info.row.original.numero_cedula)
+                }
+              />
+            </Tooltip>
+            <RouterLink to={`/user/default/${info.row.original.numero_cedula}`}>
+              <Tooltip label="Ver imagen">
+                <Button
+                  variant="action"
+                  p="0px !important"
+                  borderRadius="50%"
+                  minW="36px"
+                  h="36px"
+                >
+                  {info.getValue().length}
+                </Button>
+              </Tooltip>
             </RouterLink>
           </Flex>
         </>
@@ -170,7 +180,7 @@ export default function CheckTable(props: {
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    debugTable: true,
+    debugTable: false,
   });
   return (
     <Card
@@ -188,7 +198,6 @@ export default function CheckTable(props: {
         >
           Check Users
         </Text>
-        <Menu />
       </Flex>
       <Table variant={"simple"} color="gray.500" mb="24px" mt="12px">
         <Thead>
@@ -240,6 +249,37 @@ export default function CheckTable(props: {
             })}
         </Tbody>
       </Table>
+      <Box display="flex" columnGap={"2"} ps="25px">
+        <Button
+          variant="action"
+          onClick={() => table.setPageIndex(0)}
+          disabled={!table.getCanPreviousPage()}
+        >
+          <Icon as={FaAngleDoubleLeft} />
+        </Button>
+        <Button
+          variant="action"
+          onClick={() => table.previousPage()}
+          disabled={!table.getCanPreviousPage()}
+        >
+          <Icon as={IoIosArrowBack} />
+        </Button>
+        <Button
+          variant="action"
+          onClick={() => table.nextPage()}
+          disabled={!table.getCanNextPage()}
+        >
+          <Icon as={IoIosArrowForward} />
+        </Button>
+        <Button
+          variant="action"
+          onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+          disabled={!table.getCanNextPage()}
+        >
+          <Icon as={FaAngleDoubleRight} />
+        </Button>
+        {/* {JSON.stringify(table.getState())} */}
+      </Box>
     </Card>
   );
 }

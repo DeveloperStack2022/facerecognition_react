@@ -1,5 +1,8 @@
-export interface user_persistenciaI {
+type ImageBase64T = {
   image_base64: string;
+};
+export interface user_persistenciaI {
+  image_base64: ImageBase64T[];
   nombres: string;
   numero_cedula: string;
   condicion_cedulado?: "ciudadano" | "ciudadana";

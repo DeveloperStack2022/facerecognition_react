@@ -18,6 +18,7 @@ import Swal from "sweetalert2";
 //Custom components
 import InputField from "views/admin/dataTables/components/InputField";
 export default function FormUploadUser(props: { [x: string]: any }) {
+  let messageError = "Porfavor sube una foto del usuario que estas agregando";
   const { ...rest } = props;
   const history = useHistory();
   //Refs
@@ -52,8 +53,16 @@ export default function FormUploadUser(props: { [x: string]: any }) {
   const submitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    if (!UploadImage) return;
-
+    if (!UploadImage) {
+      return Swal.fire({
+        title: "Error",
+        showConfirmButton: true,
+        text: messageError,
+        confirmButtonText: "OK",
+        confirmButtonColor: "#422AFB",
+        icon: "error",
+      });
+    }
     handleSubmit(async (data) => {
       console.log("handle Submit");
       formData.append("image", picture);

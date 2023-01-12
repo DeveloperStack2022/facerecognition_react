@@ -19,13 +19,13 @@ const initialState: UserState = {
   isSuccess: false,
   user_persistencia: {
     numero_cedula: "",
-    image_base64: "",
+    image_base64: [{ image_base64: "" }],
     nombres: "",
   },
   user_array: [
     {
       numero_cedula: "",
-      image_base64: "",
+      image_base64: [{ image_base64: "" }],
       nombres: "",
       anio_ins_nacimiento: "",
       calles_domicilio: "",
@@ -53,6 +53,16 @@ export const userPersistenciaSlice = createSlice({
   initialState: initialState,
   reducers: {
     user_persistencia: (state, action: PayloadAction<user_persistenciaI>) => {},
+    change_user_detail: (
+      state,
+      action: PayloadAction<{ numero_cedula: string }>
+    ) => {
+      let index_ = state.user_array.findIndex(
+        (elem) => elem.numero_cedula == action.payload.numero_cedula
+      );
+
+      state.user_persistencia = state.user_array[index_];
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -68,7 +78,6 @@ export const userPersistenciaSlice = createSlice({
             payload: user_persistenciaI;
           }>
         ) => {
-          console.log(action);
           state.isLoading = false;
           if (action.payload.success) {
             state.isSuccess = true;
@@ -82,12 +91,12 @@ export const userPersistenciaSlice = createSlice({
         state.isLoading = false;
         state.user_persistencia = {
           numero_cedula: "",
-          image_base64: "",
+          image_base64: [{ image_base64: "" }],
           nombres: "",
         };
       });
   },
 });
 
-export const {} = userPersistenciaSlice.actions;
+export const { change_user_detail } = userPersistenciaSlice.actions;
 export default userPersistenciaSlice.reducer;

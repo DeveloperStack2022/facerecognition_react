@@ -42,20 +42,20 @@ const routes = [
     component: DataTables,
     secondary: true,
   },
-  {
-    name: "Video Stream",
-    layout: "/admin",
-    icon: (
-      <Icon
-        as={MdVideoCameraFront}
-        width="20px"
-        height="20px"
-        color="inherit"
-      />
-    ),
-    path: "/video-stream",
-    component: VideoStream,
-  },
+  // {
+  //   name: "Video Stream",
+  //   layout: "/admin",
+  //   icon: (
+  //     <Icon
+  //       as={MdVideoCameraFront}
+  //       width="20px"
+  //       height="20px"
+  //       color="inherit"
+  //     />
+  //   ),
+  //   path: "/video-stream",
+  //   component: VideoStream,
+  // },
   {
     name: "Comparar imagenes",
     layout: "/admin",
@@ -63,6 +63,15 @@ const routes = [
     icon: <Icon as={BsCardImage} width="20px" height="20px" color="inherit" />,
     component: CompareImage,
     secondary: true,
+  },
+  {
+    name: "Search By Image",
+    layout: "/admin",
+    path: "/search-by-images",
+    icon: (
+      <Icon as={MdImageSearch} width="20px" height="20px" color="inherit" />
+    ),
+    component: SearchByImage,
   },
   {
     name: "Registro users",
@@ -77,15 +86,6 @@ const routes = [
     path: "/sign-in",
     icon: <Icon as={MdLock} width="20px" height="20px" color="inherit" />,
     component: SignInCentered,
-  },
-  {
-    name: "Search By Image",
-    layout: "/admin",
-    path: "/search-by-images",
-    icon: (
-      <Icon as={MdImageSearch} width="20px" height="20px" color="inherit" />
-    ),
-    component: SearchByImage,
   },
   {
     name: "Profile",

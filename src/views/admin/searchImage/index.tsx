@@ -1,13 +1,10 @@
 import React from "react";
-import { useColorModeValue, Box, Grid } from "@chakra-ui/react";
+import { Box, Grid } from "@chakra-ui/react";
 
 //Custom Components
 import Banner from "./components/Banner";
 
 export default function SearchByImage() {
-  const textColor = useColorModeValue("secondaryGray.900", "white");
-  const textColorBrand = useColorModeValue("brand.500", "white");
-
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
       <Grid

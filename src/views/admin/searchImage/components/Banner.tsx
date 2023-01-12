@@ -133,14 +133,7 @@ export default function Banner(props: { titleBanner: string }) {
       >
         Nombres: {MessageServer.nombres}
       </Text>
-      <Text
-        color={textColorSecondary}
-        fontSize="md"
-        my={{ base: "auto", "2xl": "10px" }}
-        textAlign="start"
-      >
-        Apellidos: {MessageServer.apellidos}
-      </Text>
+
       <Button
         fontSize="md"
         variant="brand"
