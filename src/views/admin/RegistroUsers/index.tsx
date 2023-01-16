@@ -9,11 +9,17 @@ import {
   RadioGroup,
   Stack,
   Radio,
+  InputGroup,
+  InputRightElement,
+  Icon,
 } from "@chakra-ui/react";
 //custom components
 import Card from "components/card/Card";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
+//
+import { MdOutlineRemoveRedEye } from "react-icons/md";
+import { RiEyeCloseLine } from "react-icons/ri";
 // Clean Arhcitecture
 import di from "di";
 
@@ -33,12 +39,15 @@ export default function RegistroUsers() {
   } = useForm<InputData>({ mode: "onBlur" });
   // Chakra color mode
   const textColor = useColorModeValue("navy.700", "white");
+  const textColorSecondary = "gray.400";
   const brandStars = useColorModeValue("brand.500", "brand.400");
   const borderCard = useColorModeValue(
     "secondaryGray.100",
     "rgba(135, 140, 189, 0.3)"
   );
   const bgText = useColorModeValue("secondaryGray.300", "navy.900");
+  const [show, setShow] = useState(false);
+  const handleClick = () => setShow(!show);
 
   const sendData = (e: FormEvent<HTMLInputElement>) => {
     handleSubmit(async (data) => {
@@ -48,8 +57,7 @@ export default function RegistroUsers() {
         username: data.username,
         rol: data.rol,
       };
-      let response = await di.session.register(user_register);
-      console.log(response);
+      await di.session.register(user_register);
     })(e);
   };
 
@@ -150,22 +158,32 @@ export default function RegistroUsers() {
             </Text>
           )}
         </Flex>
-        <Input
-          fontSize="sm"
-          placeholder="Min 6 caracteres"
-          mb="24px"
-          size="lg"
-          type={"password"}
-          variant="custom"
-          borderColor={errors.password && "red.500"}
-          {...register("password", {
-            required: "Campo vacio",
-            minLength: {
-              message: "Minimo 6 caracteres",
-              value: 6,
-            },
-          })}
-        />
+        <InputGroup>
+          <Input
+            fontSize="sm"
+            placeholder="Min 6 caracteres"
+            mb="24px"
+            size="lg"
+            type={"password"}
+            variant="custom"
+            borderColor={errors.password && "red.500"}
+            {...register("password", {
+              required: "Campo vacio",
+              minLength: {
+                message: "Minimo 6 caracteres",
+                value: 6,
+              },
+            })}
+          />
+          <InputRightElement display="flex" alignItems="center" mt="4px">
+            <Icon
+              color={textColorSecondary}
+              _hover={{ cursor: "pointer" }}
+              as={show ? RiEyeCloseLine : MdOutlineRemoveRedEye}
+              onClick={handleClick}
+            />
+          </InputRightElement>
+        </InputGroup>
         <Card
           mb="24px"
           bg="transparent"

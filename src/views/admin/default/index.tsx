@@ -11,19 +11,21 @@ import CheckTable from "views/admin/default/components/CheckTable";
 import TableData from "views/admin/default/components/TableData";
 export default function UserReports() {
   const dispatch = useAppDispatch();
-  const { users } = useAppSelector((state) => state.users);
+  const { users, isLoading } = useAppSelector((state) => state.users);
   useEffect(() => {
     // console.log(di.session.verifyToken());
-    if (users.length == 0) {
+    if (users.length === 0) {
       dispatch(getProducts());
     }
     return () => {};
-  }, []);
+  }, [users, dispatch]);
 
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
       <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
-        <CheckTable columnsData={columnsDataCheck} tableData={users} />
+        {!isLoading && (
+          <CheckTable columnsData={columnsDataCheck} tableData={users} />
+        )}
         <TableData />
       </SimpleGrid>
     </Box>

@@ -27,15 +27,30 @@ import { Link as RouterLink } from "react-router-dom";
 //React Icons
 import { HiOutlineDocumentText } from "react-icons/hi";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import { FaAngleDoubleLeft, FaAngleDoubleRight } from "react-icons/fa";
+
+import {
+  FaAngleDoubleLeft,
+  FaAngleDoubleRight,
+  FaRegTrashAlt,
+} from "react-icons/fa";
 // Custom components
 import Card from "components/card/Card";
 
 //Store Slice  - Redux
 import { getUserPersisitencia } from "features/user_persistencia/user_persistenciaSlice";
-import { change_user_detail } from "features/user_persistencia/user_persistenciaSlice";
+import {
+  change_user_detail,
+  clear,
+} from "features/user_persistencia/user_persistenciaSlice";
+import {
+  delete_user,
+  delteUserPersistenciaAsyncThunk,
+} from "features/user/userSlice";
+
 //Custom Hooks
 import { useAppDispatch, useAppSelector } from "hooks/redux/hook";
+import Swal from "sweetalert2";
+
 type RowObj = {
   nombres: string;
   numero_cedula: string;
@@ -53,13 +68,14 @@ export default function CheckTable(props: {
   const stateStatusUserPersistenciaR = useAppSelector(
     (state) => state.user_persistencia
   );
-
+  const userDataR = useAppSelector((state) => state.users.users);
   const { columnsData, tableData } = props;
   const [Sorting, setSorting] = useState<SortingState>([]);
   //Color Mode
   const textColor = useColorModeValue("secondaryGray.900", "white");
   // const iconButtonColor = useColorModeValue("")
   let defaultData = tableData;
+  const [Data, setData] = useState(() => [...defaultData]);
 
   const handleClickDataInformation = (numero_cedula: string) => {
     let result_ = stateStatusUserPersistenciaR.user_array.filter(
@@ -70,6 +86,31 @@ export default function CheckTable(props: {
       return;
     }
     dispatch(change_user_detail({ numero_cedula }));
+  };
+
+  const handleDelete = (numero_cedula: string) => {
+    Swal.fire({
+      title: "Question",
+      text: `Estas seguro que deseas eliminar este usuario.`,
+      showCancelButton: true,
+      cancelButtonText: "NO",
+      cancelButtonColor: "#e53e3e",
+      showConfirmButton: true,
+      confirmButtonText: "SI",
+      confirmButtonColor: "#422AFB",
+      icon: "question",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(delteUserPersistenciaAsyncThunk(numero_cedula));
+        dispatch(delete_user({ numero_cedula }));
+        dispatch(clear());
+        setData((data) =>
+          data.filter((e) => e.numero_cedula !== numero_cedula)
+        );
+
+        Swal.fire("Eliminado", "", "success");
+      }
+    });
   };
 
   const Columns = [
@@ -153,6 +194,22 @@ export default function CheckTable(props: {
                 }
               />
             </Tooltip>
+            <Tooltip label="Delete user">
+              <IconButton
+                display={"flex"}
+                justifyContent="center"
+                alignItems={"center"}
+                variant="action"
+                aria-label="Generate_"
+                icon={<FaRegTrashAlt />}
+                p="0px !important"
+                borderRadius="50%"
+                fontSize={{ lg: "lg", base: "lg", sm: "md" }}
+                w="36px"
+                h="36px"
+                onClick={() => handleDelete(info.row.original.numero_cedula)}
+              />
+            </Tooltip>
             <RouterLink to={`/user/default/${info.row.original.numero_cedula}`}>
               <Tooltip label="Ver imagen">
                 <Button
@@ -171,7 +228,6 @@ export default function CheckTable(props: {
       ),
     }),
   ];
-  const [Data, setData] = useState(() => [...defaultData]);
 
   const table = useReactTable({
     data: Data,
@@ -182,6 +238,7 @@ export default function CheckTable(props: {
     getSortedRowModel: getSortedRowModel(),
     debugTable: false,
   });
+
   return (
     <Card
       flexDirection="column"
@@ -230,7 +287,7 @@ export default function CheckTable(props: {
         <Tbody>
           {table
             .getRowModel()
-            .rows.slice(0, 11)
+            .rows.slice(0, 10)
             .map((row) => {
               return (
                 <Tr key={row.id}>

@@ -12,9 +12,12 @@ import {
   Th,
   TableContainer,
   Stack,
+  useColorModeValue,
+  Box,
+  Avatar,
 } from "@chakra-ui/react";
 //Types Props,
-import { IUser_db_Data } from "domain/Entities/interfaces/iUser_db";
+
 // Redux
 import { useAppDispatch, useAppSelector } from "hooks/redux/hook";
 //Custom Components
@@ -24,229 +27,308 @@ const TableDataInformationUser = () => {
   // const { cedula, nombres, ...rest } = props;
   //Redux Hooks
   let userPersistencia = useAppSelector((state) => state.user_persistencia);
-
+  //Color mode value
+  // const textBackground = useColorModeValue("#7479fd", "#7479fd");
+  const textColor = useColorModeValue("secondaryGray.900", "white");
+  // const textColorBrand = useColorModeValue("brand.500", " gray.400");
   return (
     <>
-      <Card display={"flex"}>
+      <Card display={"flex"} border="2px" borderColor={"gray.500"}>
         <Stack
-          direction={{ base: "row", sm: "column", lg: "row" }}
+          direction={{ base: "column", sm: "column", lg: "column" }}
           justifyContent={{ sm: "center" }}
         >
-          <Img
-            src={`data:image/png;base64,${userPersistencia.user_persistencia.image_base64[0].image_base64}`}
-            width="250px"
-            height={"250px"}
-          />
+          <Text fontSize="2xl" fontWeight={"700"} mb="2" color={textColor}>
+            Informacion
+          </Text>
+          <Box w="100%" display={"flex"}>
+            {userPersistencia.user_persistencia.image_base64[0].image_base64 ==
+            "" ? (
+              <Avatar borderRadius={"none"} w="250px" h="250px" bg="gray.300" />
+            ) : (
+              <Img
+                src={`data:image/png;base64,${userPersistencia.user_persistencia.image_base64[0].image_base64}`}
+                width="250px"
+                height={"250px"}
+              />
+            )}
 
-          <Table size="sm">
-            <Tbody>
-              <Tr>
-                <Td>
-                  <Text
-                    textTransform={"uppercase"}
-                    as="span"
-                    letterSpacing={"normal"}
-                  >
-                    Nombres: {userPersistencia.user_persistencia.nombres}
-                  </Text>{" "}
-                </Td>
-                <Td>
-                  <Text
-                    textTransform={"uppercase"}
-                    as="span"
-                    letterSpacing={"normal"}
-                  >
-                    Cedula: {userPersistencia.user_persistencia.numero_cedula}
-                  </Text>{" "}
-                </Td>
-              </Tr>
-              <Tr>
-                <Td>
-                  <Text
-                    textTransform={"uppercase"}
-                    as="span"
-                    letterSpacing={"normal"}
-                  >
-                    Condicion cedulado:{" "}
-                    {userPersistencia.user_persistencia.condicion_cedulado}
-                  </Text>{" "}
-                </Td>
-                <Td>
-                  <Text
-                    textTransform={"uppercase"}
-                    as="span"
-                    letterSpacing={"normal"}
-                  >
-                    Fecha nacimiento:{" "}
-                  </Text>{" "}
-                </Td>
-              </Tr>
-              <Tr>
-                <Td>
-                  <Text
-                    textTransform={"uppercase"}
-                    as="span"
-                    letterSpacing={"-0.48px"}
-                  >
-                    Lugar ins nacimiento:{" "}
-                    {userPersistencia.user_persistencia.lugar_ins_nacimiento}
-                  </Text>{" "}
-                </Td>
-                <Td>
-                  <Text
-                    textTransform={"uppercase"}
-                    as="span"
-                    letterSpacing={"-0.48px"}
-                  >
-                    Año ins nacimiento:{" "}
-                    {userPersistencia.user_persistencia.anio_ins_nacimiento}
-                  </Text>{" "}
-                </Td>
-              </Tr>
-              <Tr>
-                <Td>
-                  <Text
-                    textTransform={"uppercase"}
-                    as="span"
-                    letterSpacing={"-0.48px"}
-                  >
-                    Nacionalidad:{" "}
-                    {userPersistencia.user_persistencia.nacionalidad}
-                  </Text>{" "}
-                </Td>
-                <Td>
-                  <Text
-                    textTransform={"uppercase"}
-                    as="span"
-                    letterSpacing={"-0.48px"}
-                  >
-                    Codigo dactilar:{" "}
-                    {userPersistencia.user_persistencia.codigo_dactilar}
-                  </Text>{" "}
-                </Td>
-              </Tr>
-              <Tr>
-                <Td>
-                  <Text
-                    textTransform={"uppercase"}
-                    as="span"
-                    letterSpacing={"-0.48px"}
-                  >
-                    Estado civil:{" "}
-                    {userPersistencia.user_persistencia.estado_civil}
-                  </Text>{" "}
-                </Td>
-                <Td>
-                  <Text
-                    textTransform={"uppercase"}
-                    as="span"
-                    letterSpacing={"-0.48px"}
-                  >
-                    Conyugue: {userPersistencia.user_persistencia.conyuge}
-                  </Text>{" "}
-                </Td>
-              </Tr>
-              <Tr>
-                <Td>
-                  <Text
-                    textTransform={"uppercase"}
-                    as="span"
-                    letterSpacing={"-0.48px"}
-                  >
-                    Instruccion:{" "}
-                    {userPersistencia.user_persistencia.instruccion}
-                  </Text>{" "}
-                </Td>
-                <Td>
-                  <Text
-                    textTransform={"uppercase"}
-                    as="span"
-                    letterSpacing={"-0.48px"}
-                  >
-                    Profesion: {userPersistencia.user_persistencia.profession}
-                  </Text>{" "}
-                </Td>
-              </Tr>
-              <Tr>
-                <Td>
-                  <Text
-                    textTransform={"uppercase"}
-                    as="span"
-                    letterSpacing={"-0.48px"}
-                  >
-                    Nombre padre:{" "}
-                    {userPersistencia.user_persistencia.nombre_padre}
-                  </Text>{" "}
-                </Td>
-                <Td>
-                  <Text
-                    textTransform={"uppercase"}
-                    as="span"
-                    letterSpacing={"-0.48px"}
-                  >
-                    Nacionalidad padre:{" "}
-                    {userPersistencia.user_persistencia.nacionalidad_padre}
-                  </Text>{" "}
-                </Td>
-              </Tr>
-              <Tr>
-                <Td>
-                  <Text
-                    textTransform={"uppercase"}
-                    as="span"
-                    letterSpacing={"-0.48px"}
-                  >
-                    Nombre madre:{" "}
-                    {userPersistencia.user_persistencia.nombre_madre}
-                  </Text>{" "}
-                </Td>
-                <Td>
-                  <Text
-                    textTransform={"uppercase"}
-                    as="span"
-                    letterSpacing={"-0.48px"}
-                  >
-                    Nacionalidad madre:{" "}
-                    {userPersistencia.user_persistencia.nacionalidad_madre}
-                  </Text>{" "}
-                </Td>
-              </Tr>
-              <Tr>
-                <Td>
-                  <Text
-                    textTransform={"uppercase"}
-                    as="span"
-                    letterSpacing={"-0.48px"}
-                  >
-                    Domicilio: {userPersistencia.user_persistencia.domicilio}
-                  </Text>{" "}
-                </Td>
-                <Td></Td>
-              </Tr>
-              <Tr>
-                <Td>
-                  <Text
-                    textTransform={"uppercase"}
-                    as="span"
-                    letterSpacing={"-0.48px"}
-                  >
-                    Calles domicilio:{" "}
-                    {userPersistencia.user_persistencia.calles_domicilio}
-                  </Text>{" "}
-                </Td>
-                <Td>
-                  <Text
-                    textTransform={"uppercase"}
-                    as="span"
-                    letterSpacing={"-0.48px"}
-                  >
-                    Doble nacionalidad:{" "}
-                    {userPersistencia.user_persistencia.doble_nacionalidad}
-                  </Text>{" "}
-                </Td>
-              </Tr>
-            </Tbody>
-          </Table>
+            <Table size="sm" variant="myTable">
+              <Tbody>
+                <Tr>
+                  <Td>
+                    <Text
+                      textTransform={"uppercase"}
+                      as="span"
+                      letterSpacing={"normal"}
+                      fontWeight={"700"}
+                    >
+                      Nombres:
+                    </Text>
+                    <Text ml="1" as={"span"} textTransform={"uppercase"}>
+                      {userPersistencia.user_persistencia.nombres}
+                    </Text>
+                  </Td>
+                  <Td>
+                    <Text
+                      textTransform={"uppercase"}
+                      as="span"
+                      letterSpacing={"normal"}
+                      fontWeight={"700"}
+                    >
+                      Cedula:
+                    </Text>
+                    <Text ml="1" as={"span"}>
+                      {userPersistencia.user_persistencia.numero_cedula}
+                    </Text>
+                  </Td>
+                </Tr>
+                <Tr>
+                  <Td>
+                    <Text
+                      textTransform={"uppercase"}
+                      as="span"
+                      letterSpacing={"normal"}
+                      fontWeight={"700"}
+                    >
+                      Condicion cedulado:{" "}
+                    </Text>
+                    <Text ml="1" as={"span"} textTransform={"uppercase"}>
+                      {userPersistencia.user_persistencia.condicion_cedulado}
+                    </Text>
+                  </Td>
+                  <Td>
+                    <Text
+                      textTransform={"uppercase"}
+                      as="span"
+                      letterSpacing={"normal"}
+                      fontWeight={"700"}
+                    >
+                      Fecha nacimiento:{" "}
+                    </Text>{" "}
+                  </Td>
+                </Tr>
+                <Tr>
+                  <Td>
+                    <Text
+                      textTransform={"uppercase"}
+                      as="span"
+                      letterSpacing={"-0.48px"}
+                      fontWeight="700"
+                    >
+                      Lugar ins nacimiento:{" "}
+                    </Text>
+                    <Text ml="1" as={"span"} textTransform={"uppercase"}>
+                      {" "}
+                      {userPersistencia.user_persistencia.lugar_ins_nacimiento}
+                    </Text>
+                  </Td>
+                  <Td>
+                    <Text
+                      textTransform={"uppercase"}
+                      as="span"
+                      letterSpacing={"-0.48px"}
+                      fontWeight={"700"}
+                    >
+                      Año ins nacimiento:{" "}
+                    </Text>
+                    <Text as={"span"}>
+                      {" "}
+                      {userPersistencia.user_persistencia.anio_ins_nacimiento}
+                    </Text>
+                  </Td>
+                </Tr>
+                <Tr>
+                  <Td>
+                    <Text
+                      textTransform={"uppercase"}
+                      as="span"
+                      letterSpacing={"-0.48px"}
+                      fontWeight={"700"}
+                    >
+                      Nacionalidad:{" "}
+                    </Text>
+                    <Text ml="1" as={"span"} textTransform="uppercase">
+                      {userPersistencia.user_persistencia.nacionalidad}
+                    </Text>
+                  </Td>
+                  <Td>
+                    <Text
+                      textTransform={"uppercase"}
+                      as="span"
+                      letterSpacing={"-0.48px"}
+                      fontWeight="700"
+                    >
+                      Codigo dactilar:{" "}
+                    </Text>
+                    <Text ml="1" as={"span"} textTransform="uppercase">
+                      {userPersistencia.user_persistencia.codigo_dactilar}
+                    </Text>
+                  </Td>
+                </Tr>
+                <Tr>
+                  <Td>
+                    <Text
+                      textTransform={"uppercase"}
+                      as="span"
+                      letterSpacing={"-0.48px"}
+                      fontWeight="700"
+                    >
+                      Estado civil:{" "}
+                    </Text>{" "}
+                    <Text ml="1" as={"span"} textTransform="uppercase">
+                      {userPersistencia.user_persistencia.estado_civil}
+                    </Text>
+                  </Td>
+                  <Td>
+                    <Text
+                      textTransform={"uppercase"}
+                      as="span"
+                      letterSpacing={"-0.48px"}
+                      fontWeight="700"
+                    >
+                      Conyugue:
+                    </Text>
+                    <Text ml="1" as={"span"} textTransform="uppercase">
+                      {userPersistencia.user_persistencia.conyuge}
+                    </Text>
+                  </Td>
+                </Tr>
+                <Tr>
+                  <Td>
+                    <Text
+                      textTransform={"uppercase"}
+                      as="span"
+                      letterSpacing={"-0.48px"}
+                      fontWeight="700"
+                    >
+                      Instruccion:{" "}
+                    </Text>{" "}
+                    <Text ml="1" as={"span"} textTransform="uppercase">
+                      {userPersistencia.user_persistencia.instruccion}
+                    </Text>
+                  </Td>
+                  <Td>
+                    <Text
+                      textTransform={"uppercase"}
+                      as="span"
+                      letterSpacing={"-0.48px"}
+                      fontWeight="700"
+                    >
+                      Profesion:
+                    </Text>{" "}
+                    <Text ml="1" as={"span"} textTransform="uppercase">
+                      {userPersistencia.user_persistencia.profession}
+                    </Text>
+                  </Td>
+                </Tr>
+                <Tr>
+                  <Td>
+                    <Text
+                      textTransform={"uppercase"}
+                      as="span"
+                      letterSpacing={"-0.48px"}
+                      fontWeight="700"
+                    >
+                      Nombre padre:{" "}
+                    </Text>{" "}
+                    <Text ml="1" as={"span"} textTransform="uppercase">
+                      {" "}
+                      {userPersistencia.user_persistencia.nombre_padre}
+                    </Text>
+                  </Td>
+                  <Td>
+                    <Text
+                      textTransform={"uppercase"}
+                      as="span"
+                      letterSpacing={"-0.48px"}
+                      fontWeight="700"
+                    >
+                      Nacionalidad padre:{" "}
+                    </Text>{" "}
+                    <Text ml="1" as={"span"} textTransform="uppercase">
+                      {" "}
+                      {userPersistencia.user_persistencia.nacionalidad_padre}
+                    </Text>
+                  </Td>
+                </Tr>
+                <Tr>
+                  <Td>
+                    <Text
+                      textTransform={"uppercase"}
+                      as="span"
+                      letterSpacing={"-0.48px"}
+                      fontWeight="700"
+                    >
+                      Nombre madre:{" "}
+                    </Text>{" "}
+                    <Text ml="1" as={"span"} textTransform="uppercase">
+                      {" "}
+                      {userPersistencia.user_persistencia.nombre_madre}
+                    </Text>
+                  </Td>
+                  <Td>
+                    <Text
+                      textTransform={"uppercase"}
+                      as="span"
+                      letterSpacing={"-0.48px"}
+                      fontWeight="700"
+                    >
+                      Nacionalidad madre:{" "}
+                    </Text>{" "}
+                    <Text ml="1" as={"span"} textTransform="uppercase">
+                      {" "}
+                      {userPersistencia.user_persistencia.nacionalidad_madre}
+                    </Text>
+                  </Td>
+                </Tr>
+                <Tr>
+                  <Td>
+                    <Text
+                      textTransform={"uppercase"}
+                      as="span"
+                      letterSpacing={"-0.48px"}
+                      fontWeight="700"
+                    >
+                      Domicilio:
+                    </Text>{" "}
+                    <Text ml="1" as={"span"} textTransform="uppercase">
+                      {userPersistencia.user_persistencia.domicilio}
+                    </Text>
+                  </Td>
+                  <Td></Td>
+                </Tr>
+                <Tr>
+                  <Td>
+                    <Text
+                      textTransform={"uppercase"}
+                      as="span"
+                      letterSpacing={"-0.48px"}
+                      fontWeight="700"
+                    >
+                      Calles domicilio:{" "}
+                      {userPersistencia.user_persistencia.calles_domicilio}
+                    </Text>{" "}
+                    <Text ml="1" as={"span"} textTransform="uppercase"></Text>
+                  </Td>
+                  <Td>
+                    <Text
+                      textTransform={"uppercase"}
+                      as="span"
+                      letterSpacing={"-0.48px"}
+                      fontWeight="700"
+                    >
+                      Doble nacionalidad:{" "}
+                    </Text>{" "}
+                    <Text ml="1" as={"span"} textTransform="uppercase">
+                      {" "}
+                      {userPersistencia.user_persistencia.doble_nacionalidad}
+                    </Text>
+                  </Td>
+                </Tr>
+              </Tbody>
+            </Table>
+          </Box>
         </Stack>
       </Card>
     </>

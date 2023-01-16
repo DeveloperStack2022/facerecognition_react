@@ -12,3 +12,13 @@ export const getUserImage = async (numero_cedula: string) => {
   let data = await response.json();
   return data;
 };
+
+export const deleteUserPersistencia = async (numero_cedula: string) => {
+  let response = await fetch(
+    `${API_URI}/userpersistencia/delete_user?numero_cedula=${numero_cedula}`,
+    {
+      method: "DELETE",
+    }
+  );
+  return await response.json();
+};

@@ -60,8 +60,14 @@ export const userPersistenciaSlice = createSlice({
       let index_ = state.user_array.findIndex(
         (elem) => elem.numero_cedula == action.payload.numero_cedula
       );
-
       state.user_persistencia = state.user_array[index_];
+    },
+    clear: (state) => {
+      state.user_persistencia = {
+        image_base64: [{ image_base64: "" }],
+        nombres: "",
+        numero_cedula: "",
+      };
     },
   },
   extraReducers: (builder) => {
@@ -98,5 +104,6 @@ export const userPersistenciaSlice = createSlice({
   },
 });
 
-export const { change_user_detail } = userPersistenciaSlice.actions;
+export const { change_user_detail, clear, user_persistencia } =
+  userPersistenciaSlice.actions;
 export default userPersistenciaSlice.reducer;
