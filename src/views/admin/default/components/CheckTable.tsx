@@ -12,7 +12,7 @@ import {
   Box,
   IconButton,
   Tooltip,
-  Icon,
+  Icon
 } from "@chakra-ui/react";
 import { useState } from "react";
 import {
@@ -23,6 +23,7 @@ import {
   getSortedRowModel,
   flexRender,
 } from "@tanstack/react-table";
+// import {}  from '@tanstack/'
 import { Link as RouterLink } from "react-router-dom";
 //React Icons
 import { HiOutlineDocumentText } from "react-icons/hi";
@@ -35,7 +36,7 @@ import {
 } from "react-icons/fa";
 // Custom components
 import Card from "components/card/Card";
-
+import FormUsersSearch from './form_search_user'
 //Store Slice  - Redux
 import { getUserPersisitencia } from "features/user_persistencia/user_persistenciaSlice";
 import {
@@ -58,6 +59,7 @@ type RowObj = {
 };
 const columnHelper = createColumnHelper<RowObj>();
 
+
 //Component
 export default function CheckTable(props: {
   columnsData: any;
@@ -68,8 +70,8 @@ export default function CheckTable(props: {
   const stateStatusUserPersistenciaR = useAppSelector(
     (state) => state.user_persistencia
   );
-  const userDataR = useAppSelector((state) => state.users.users);
-  const { columnsData, tableData } = props;
+ 
+  const { tableData } = props;
   const [Sorting, setSorting] = useState<SortingState>([]);
   //Color Mode
   const textColor = useColorModeValue("secondaryGray.900", "white");
@@ -90,7 +92,7 @@ export default function CheckTable(props: {
 
   const handleDelete = (numero_cedula: string) => {
     Swal.fire({
-      title: "Question",
+      title: "Pregunta",
       text: `Estas seguro que deseas eliminar este usuario.`,
       showCancelButton: true,
       cancelButtonText: "NO",
@@ -114,7 +116,7 @@ export default function CheckTable(props: {
   };
 
   const Columns = [
-    columnHelper.accessor("numero_cedula", {
+    columnHelper.accessor("numero_cedula", {  
       id: "cedula",
       header: () => (
         <Text
@@ -176,7 +178,7 @@ export default function CheckTable(props: {
             flexDirection={{ base: "row", sm: "column", lg: "row" }}
             rowGap={{ base: "", sm: "1" }}
           >
-            <Tooltip label="Ver detalles">
+            <Tooltip label="Ver mas informacion">
               <IconButton
                 display={"flex"}
                 justifyContent="center"
@@ -194,7 +196,7 @@ export default function CheckTable(props: {
                 }
               />
             </Tooltip>
-            <Tooltip label="Delete user">
+            <Tooltip label="Eliminar usuario">
               <IconButton
                 display={"flex"}
                 justifyContent="center"
@@ -253,9 +255,11 @@ export default function CheckTable(props: {
           fontWeight="700"
           lineHeight="100%"
         >
-          Check Users
+          Lista de usuarios
         </Text>
       </Flex>
+        {/* Initialize form */}
+       <FormUsersSearch />
       <Table variant={"simple"} color="gray.500" mb="24px" mt="12px">
         <Thead>
           {table.getHeaderGroups().map((headerGroup) => (

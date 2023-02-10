@@ -6,8 +6,17 @@ export const tableStyles = {
       variants: {
         myTable: (props: any) => ({
           tr: {
+            th: {
+              backgroundColor: "blueCustom.500",
+              w: "25%",
+            },
             _odd: {
-              bg: mode("brand.100", "brand.500")(props),
+              bg: mode("blueCustom.500", "brand.500")(props),
+              color: "white",
+            },
+            _even: {
+              bg: mode("blueCustom.100", "transparent")(props),
+              color: mode("secondaryGray.900", "white")(props),
             },
             _hover: {
               //   bg: mode("brand.100", "brand.500")(props),
@@ -15,7 +24,7 @@ export const tableStyles = {
           },
           table: {
             border: "1px solid",
-            borderColor: mode("brand.600", "white")(props),
+            borderColor: mode("blueCustom.500", "brand.500")(props),
           },
         }),
       },

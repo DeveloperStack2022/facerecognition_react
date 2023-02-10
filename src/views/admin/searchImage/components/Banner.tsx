@@ -11,6 +11,7 @@ import {
 import { MdUpload } from "react-icons/md";
 import Card from "components/card/Card";
 import di from "di";
+import Swal from "sweetalert2";
 
 //Types
 type dataServer = {
@@ -69,6 +70,15 @@ export default function Banner(props: { titleBanner: string }) {
         numero_cedula: data.numero_cedula,
         valor_match: data.valor_match,
       });
+    }
+    if(response?.status >= 400 && response?.status <500){
+      Swal.fire({
+        title:"Informacion",
+        icon:"info",
+        text:"User con imagen no encontrada",
+        confirmButtonText:"Ok",
+      })
+      setLoading(false)
     }
   };
   return (

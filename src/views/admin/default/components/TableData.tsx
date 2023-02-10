@@ -33,7 +33,12 @@ const TableDataInformationUser = () => {
   // const textColorBrand = useColorModeValue("brand.500", " gray.400");
   return (
     <>
-      <Card display={"flex"} border="2px" borderColor={"gray.500"}>
+      <Card
+        display={"flex"}
+        border="2px"
+        borderColor={"blueCustom.200"}
+        borderRadius="md"
+      >
         <Stack
           direction={{ base: "column", sm: "column", lg: "column" }}
           justifyContent={{ sm: "center" }}
@@ -41,7 +46,12 @@ const TableDataInformationUser = () => {
           <Text fontSize="2xl" fontWeight={"700"} mb="2" color={textColor}>
             Informacion
           </Text>
-          <Box w="100%" display={"flex"}>
+          <Box
+            w="100%"
+            display={"flex"}
+            justifyContent={{ sm: "center" }}
+            flexDirection={{ sm: "column", base: "row", lg: "row", xl: "row" }}
+          >
             {userPersistencia.user_persistencia.image_base64[0].image_base64 ==
             "" ? (
               <Avatar borderRadius={"none"} w="250px" h="250px" bg="gray.300" />

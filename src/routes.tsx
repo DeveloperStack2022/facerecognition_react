@@ -28,19 +28,18 @@ import SignInCentered from "views/auth/signIn";
 
 const routes = [
   {
-    name: "List Users",
+    name: "Lista de usuarios",
     layout: "/admin",
     path: "/default",
     icon: <Icon as={HiUsers} width="20px" height="20px" color="inherit" />,
     component: MainDashboard,
   },
   {
-    name: "Upload User",
+    name: "Registro nuevo usuario",
     layout: "/admin",
-    path: "/nft-marketplace",
+    path: "/registro-nuevo-usuario",
     icon: <Icon as={MdUpload} width="20px" height="20px" color="inherit" />,
     component: DataTables,
-    secondary: true,
   },
   // {
   //   name: "Video Stream",
@@ -62,10 +61,9 @@ const routes = [
     path: "/comparar-images",
     icon: <Icon as={BsCardImage} width="20px" height="20px" color="inherit" />,
     component: CompareImage,
-    secondary: true,
   },
   {
-    name: "Search By Image",
+    name: "Busqueda por imagen",
     layout: "/admin",
     path: "/search-by-images",
     icon: (
@@ -74,14 +72,14 @@ const routes = [
     component: SearchByImage,
   },
   {
-    name: "Registro users",
+    name: "Resgistro usuario",
     layout: "/admin",
-    path: "/registro-users",
+    path: "/registro-userios",
     icon: <Icon as={FaUserPlus} width="20px" height="20px" color="inherit" />,
     component: RegistroUsers,
   },
   {
-    name: "Sign In",
+    name: "Iniciar session",
     layout: "/auth",
     path: "/sign-in",
     icon: <Icon as={MdLock} width="20px" height="20px" color="inherit" />,

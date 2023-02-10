@@ -106,14 +106,14 @@ export default function FormUploadUser(props: { [x: string]: any }) {
         rowGap="1"
         columnGap={"2"}
         templateAreas={`
-      "Image nombres cedula"
-      "Image condicion_cedulado fecha_naciomiento"
-      "Image lugar_nacimiento anio_ins_nacimiento"
-      "Image nacionalidad codigo_dactilar"
-      "estado_civil conyugue instruccion"
-      "profesion nombre_padre nacionalidad_padre"
-      "nombre_madre nacionalidad_madre domicilio"
-      "calles_domicilio doble_nacionalidad button"
+          "Image nombres cedula"
+          "Image condicion_cedulado fecha_naciomiento"
+          "Image lugar_nacimiento anio_ins_nacimiento"
+          "Image nacionalidad codigo_dactilar"
+          "estado_civil conyugue instruccion"
+          "profesion nombre_padre nacionalidad_padre"
+          "nombre_madre nacionalidad_madre domicilio"
+          "calles_domicilio doble_nacionalidad button"
       `}
       >
         <Flex
@@ -135,11 +135,11 @@ export default function FormUploadUser(props: { [x: string]: any }) {
               <Icon as={MdUpload} w="80px" h="80px" color={brandColor} />
               <Flex justify="center" mx="auto" mb="12px">
                 <Text fontSize="md" fontWeight="700" color={brandColor}>
-                  Upload File
+                  Subir Imagen
                 </Text>
               </Flex>
               <Text fontSize="sm" fontWeight="500" color="secondaryGray.500">
-                PNG, JPG and JPEG files are allowed
+                PNG, JPG y JPEG archivos permitidos
               </Text>
             </>
           ) : (

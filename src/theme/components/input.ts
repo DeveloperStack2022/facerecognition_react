@@ -8,11 +8,10 @@ export const inputStyles = {
           borderRadius: "8px",
         },
       },
-
       variants: {
         custom: (props: any) => ({
           field: {
-            fontWeight: "500",
+            fontWeight: "400",
             color: mode("navy.700", "white")(props),
             bg: mode("transparent", "transparent")(props),
             border: "1px solid",

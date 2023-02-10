@@ -131,7 +131,7 @@ export default function RegistroUsers() {
           mb="24px"
           size="lg"
           type={"email"}
-          variant="custom"
+          
           borderColor={errors.email && "red.500"}
           {...register("email", {
             required: "Campo vacio",
@@ -164,7 +164,7 @@ export default function RegistroUsers() {
             placeholder="Min 6 caracteres"
             mb="24px"
             size="lg"
-            type={"password"}
+            type={ show ? "text":"password"}
             variant="custom"
             borderColor={errors.password && "red.500"}
             {...register("password", {
@@ -214,12 +214,12 @@ export default function RegistroUsers() {
                 <Stack direction={"row"}>
                   <Radio colorScheme="brandScheme" me="10px" value="admin">
                     <Text color={textColor} fontSize="sm" fontWeight="500">
-                      Admin
+                      Administrador
                     </Text>
                   </Radio>
                   <Radio colorScheme="brandScheme" me="10px" value="user">
                     <Text color={textColor} fontSize="sm" fontWeight="500">
-                      User
+                      Usuario
                     </Text>
                   </Radio>
                 </Stack>

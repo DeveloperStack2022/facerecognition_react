@@ -122,7 +122,7 @@ export default function CompareImage() {
               borderRadius={"md"}
               onClick={onClose}
             >
-              Close
+              Cerrar
             </Button>
           </ModalFooter>
         </ModalContent>

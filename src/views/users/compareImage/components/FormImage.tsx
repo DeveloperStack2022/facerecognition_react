@@ -38,7 +38,7 @@ export default function FormImage(props: {
   } = props;
   //Colors Custom
   const brandColor = useColorModeValue("brand.500", "white");
-  const textColor = useColorModeValue("navy.700", "white");
+  
   // React Hooks
   let hiddenInput = useRef<HTMLInputElement | null>(null);
   let hiddenInputCompare = useRef<HTMLInputElement>(null);
@@ -74,7 +74,7 @@ export default function FormImage(props: {
                   Subir imagen a comparar
                 </Text>
                 <Text fontSize="sm" fontWeight="500" color="secondaryGray.500">
-                  PNG, JPG and JPEG files are allowed
+                  PNG, JPG and JPEG solo este formato
                 </Text>
               </>
             ) : (
@@ -114,7 +114,7 @@ export default function FormImage(props: {
                   Subir imagen original
                 </Text>
                 <Text fontSize="sm" fontWeight="500" color="secondaryGray.500">
-                  PNG, JPG and JPEG files are allowed
+                  PNG, JPG and JPEG solo este formato
                 </Text>
               </>
             ) : (

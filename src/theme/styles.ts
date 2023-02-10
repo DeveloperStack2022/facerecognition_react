@@ -54,6 +54,17 @@ export const globalStyles = {
       50: "#EFF4FB",
       500: "#3965FF",
     },
+    blueCustom: {
+      100: "#dfebff",
+      200: "#aaccfe",
+      300: "#75acfe",
+      400: "#418cfd",
+      500: "#0c6dfd",
+      600: "#0255d2",
+      700: "#01409e",
+      800: "#012b69",
+      900: "#001535 ",
+    },
     orange: {
       100: "#FFF6DA",
       500: "#FFB547",

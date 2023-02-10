@@ -39,6 +39,7 @@ export const delteUserPersistenciaAsyncThunk = createAsyncThunk(
   async (numero_cedula: string) => {
     try {
       let datos = await deleteUserPersistencia(numero_cedula);
+      console.log(datos);
       return datos;
     } catch (error) {
       console.log(error);
