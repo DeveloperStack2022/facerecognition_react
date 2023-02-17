@@ -1,3 +1,5 @@
+import {useEffect,useState,useCallback,useMemo} from 'react';
+
 import {
   Flex,
   Table,
@@ -14,7 +16,8 @@ import {
   Tooltip,
   Icon
 } from "@chakra-ui/react";
-import { useState } from "react";
+
+
 import {
   SortingState,
   createColumnHelper,
@@ -22,7 +25,10 @@ import {
   getCoreRowModel,
   getSortedRowModel,
   flexRender,
+  getPaginationRowModel,
+  PaginationState
 } from "@tanstack/react-table";
+
 // import {}  from '@tanstack/'
 import { Link as RouterLink } from "react-router-dom";
 //React Icons
@@ -34,9 +40,11 @@ import {
   FaAngleDoubleRight,
   FaRegTrashAlt,
 } from "react-icons/fa";
+
 // Custom components
 import Card from "components/card/Card";
 import FormUsersSearch from './form_search_user'
+
 //Store Slice  - Redux
 import { getUserPersisitencia } from "features/user_persistencia/user_persistenciaSlice";
 import {
@@ -64,20 +72,37 @@ const columnHelper = createColumnHelper<RowObj>();
 export default function CheckTable(props: {
   columnsData: any;
   tableData: any;
+  fetchData: (n_page:number) => void,
+  PageCount:number,
+  loading:boolean
 }) {
+  //Props
+  const { tableData,fetchData,PageCount,loading } = props;
+
   //Redux
   const dispatch = useAppDispatch();
   const stateStatusUserPersistenciaR = useAppSelector(
     (state) => state.user_persistencia
   );
- 
-  const { tableData } = props;
+
+  //Hooks-States
   const [Sorting, setSorting] = useState<SortingState>([]);
-  //Color Mode
-  const textColor = useColorModeValue("secondaryGray.900", "white");
-  // const iconButtonColor = useColorModeValue("")
   let defaultData = tableData;
   const [Data, setData] = useState(() => [...defaultData]);
+  const [{pageIndex,pageSize}, setPaginationState] = useState<PaginationState>({
+    pageIndex:0,
+    pageSize:10
+  })
+  
+  //Hooks - Memo 
+  const pagination = useMemo(() => ({pageIndex,pageSize}),[pageIndex,pageSize])
+  const defaultDataMemo = useMemo(() => [], [])
+
+  //Color Mode
+  const textColor = useColorModeValue("secondaryGray.900", "white");
+  
+
+  //  ************* Events Clicks **************************** //
 
   const handleClickDataInformation = (numero_cedula: string) => {
     let result_ = stateStatusUserPersistenciaR.user_array.filter(
@@ -230,17 +255,27 @@ export default function CheckTable(props: {
       ),
     }),
   ];
-
+  
   const table = useReactTable({
-    data: Data,
+    data: tableData ?? defaultDataMemo,
     columns: Columns,
-    state: { sorting: Sorting },
+    onPaginationChange: setPaginationState,
+    state:{pagination:pagination},
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    debugTable: false,
+    getPaginationRowModel: getPaginationRowModel(),
+    debugTable: true,
+    pageCount:PageCount ?? -1 ,
+    manualPagination:true,
   });
 
+  useEffect(() => {
+    let pageIndexN = pageIndex + 1
+    fetchData && fetchData(pageIndexN) 
+    return () => {}
+  },[pageIndex,fetchData])
+  
   return (
     <Card
       flexDirection="column"
@@ -258,9 +293,9 @@ export default function CheckTable(props: {
           Lista de usuarios
         </Text>
       </Flex>
-        {/* Initialize form */}
-       <FormUsersSearch />
-      <Table variant={"simple"} color="gray.500" mb="24px" mt="12px">
+      {/* Initialize form */}
+      {/* <FormUsersSearch /> */} 
+        <Table variant={"simple"} color="gray.500" mb="24px" mt="12px">
         <Thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <Tr key={headerGroup.id}>
@@ -291,7 +326,7 @@ export default function CheckTable(props: {
         <Tbody>
           {table
             .getRowModel()
-            .rows.slice(0, 10)
+            .rows.slice(0,8)
             .map((row) => {
               return (
                 <Tr key={row.id}>
@@ -310,6 +345,7 @@ export default function CheckTable(props: {
             })}
         </Tbody>
       </Table>
+        
       <Box display="flex" columnGap={"2"} ps="25px">
         <Button
           variant="action"

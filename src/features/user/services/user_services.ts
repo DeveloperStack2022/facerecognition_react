@@ -1,7 +1,7 @@
 const API_URI = "http://localhost:8000/api/v0.1";
 // const API_URI = "http://192.168.68.27:8000/api/v0.1";
 export const getUsers = async () => {
-  let response = await fetch(`${API_URI}/userpersistencia/get_users`);
+  let response = await fetch(`${API_URI}/userpersistencia/get_users?n_page=1`);
   return await response.json();
 };
 export const getUserImage = async (numero_cedula: string) => {
@@ -22,3 +22,9 @@ export const deleteUserPersistencia = async (numero_cedula: string) => {
   );
   return await response.json();
 };
+
+
+export const getUsersPage = async (n_page:number) => {
+  let response = await fetch(`${API_URI}/userpersistencia/get_users?n_page=${n_page}`)
+  return await response.json()
+}

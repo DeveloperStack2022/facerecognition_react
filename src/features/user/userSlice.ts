@@ -1,11 +1,12 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { getUsers, deleteUserPersistencia } from "./services/user_services";
+import { getUsers, deleteUserPersistencia,getUsersPage } from "./services/user_services";
 
 import { User } from "./models/user";
 interface AsyncStateI {
   isLoading: boolean;
   isSuccess: boolean;
   isError: boolean;
+  pageCount:number;
   deletUserIsLoading: boolean;
   deleteUserIsError: boolean;
   delteUserIsSuccess: boolean;
@@ -19,6 +20,7 @@ const initialState: UserState = {
   isError: false,
   isLoading: false,
   isSuccess: false,
+  pageCount:0,
   deletUserIsLoading: false,
   deleteUserIsError: false,
   delteUserIsSuccess: false,
@@ -33,6 +35,15 @@ export const getProducts = createAsyncThunk("users", async () => {
     console.log(error);
   }
 });
+
+export const getUserPage = createAsyncThunk('users_page', async (n_page:number) => {
+  try {
+    let datos = await getUsersPage(n_page)
+    return datos;
+  }catch(error ) {
+    console.log(error)
+  }
+})
 
 export const delteUserPersistenciaAsyncThunk = createAsyncThunk(
   "delete_user_persistencia",
@@ -93,7 +104,26 @@ export const userSlice = createSlice({
         (state, action: PayloadAction<{}>) => {
           state.deleteUserIsError = true;
         }
-      );
+      )
+      .addCase(
+        getUserPage.pending, (state) => {
+          state.isLoading = true
+        }
+      )
+      .addCase(
+        getUserPage.fulfilled, (state,action) => {
+          state.isLoading = false
+          state.isSuccess = true;
+          state.pageCount = action.payload?.total_pages;
+          state.users = action.payload?.payload || []
+        }
+      )
+      .addCase(
+        getUserPage.rejected,(state) => {
+          state.isError = true;
+          state.isLoading = false
+        }
+      )
   },
 });
 

@@ -19,7 +19,7 @@ export default function UserReports() {
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
       <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
-        <CheckTable columnsData={columnsDataCheck} tableData={users} />
+        {/* <CheckTable columnsData={columnsDataCheck} tableData={users} /> */}
       </SimpleGrid>
       {/* <img
         src={
