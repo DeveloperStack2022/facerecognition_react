@@ -11,18 +11,20 @@ export default class UserRepository implements IUserRepository {
   async addUser(data: any): Promise<any> {
     const response = await this.httpFormData.request({
       url: "http://localhost:8000/api/v0.1/userpersistencia/addImage",
-      method: "POST",
+      method: "POST", 
       body: data,
       headers: {},
     });
     return response;
   }
-  async searchByImage(data: any): Promise<any> {
+  async searchByImage(data: any,token:string): Promise<any> {
     const response = await this.httpFormData.request({
       url: "http://localhost:8000/api/v0.1/userdetect/compareImageFaceRecognitionTwo",
       method: "POST",
       body: data,
-      headers: {},
+      headers: {
+        AuthToken: `Bearer ${token}`
+      },
     });
     return response;
   }

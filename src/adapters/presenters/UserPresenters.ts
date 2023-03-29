@@ -6,7 +6,7 @@ export default class UserPresenter implements IUserPresenters {
   public async add(data: any): Promise<any> {
     return await this.useCases.addUser(data);
   }
-  public async searchByImage(data: any): Promise<any> {
-    return await this.useCases.searchByImage(data);
+  public async searchByImage(data: any,token:string): Promise<any> {
+    return await this.useCases.searchByImage(data,token);
   }
 }

@@ -123,7 +123,7 @@ export default function DevelopmentTable(props: { columnsData: any; tableData: a
 												</Text>
 												<Progress
 													variant='table'
-													colorScheme='brandScheme'
+													colorScheme='brand'
 													h='8px'
 													w='63px'
 													value={cell.value}

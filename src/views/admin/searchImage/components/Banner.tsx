@@ -59,7 +59,7 @@ export default function Banner(props: { titleBanner: string }) {
     const formData = new FormData();
     formData.append("image_compare", picture);
     setLoading(true);
-    let response = await di.user.searchByImage(formData);
+    let response = await di.user.searchByImage(formData,di.session.getToken());
     if (response?.status >= 200 && response?.status < 300) {
       let data = await response?.json();
       data = data.payload;
@@ -98,11 +98,11 @@ export default function Banner(props: { titleBanner: string }) {
             <Icon as={MdUpload} w="40px" h="40px" color={textColorPrimary} />
             <Flex justify="center" mx="auto" mb="12px">
               <Text fontSize="md" fontWeight="700" color={textColorPrimary}>
-                Upload File
+                Subir Archivo
               </Text>
             </Flex>
             <Text fontSize="sm" fontWeight="500" color="secondaryGray.500">
-              PNG, JPG and JPEG files are allowed
+              PNG, JPG y JPEG archivos permitidos
             </Text>
           </>
         ) : (
@@ -156,7 +156,7 @@ export default function Banner(props: { titleBanner: string }) {
         onClick={handleSubmit}
         isLoading={Loading}
       >
-        Submit
+        Buscar
       </Button>
     </Card>
   );

@@ -8,7 +8,10 @@ import {
 } from "react-icons/md";
 import { HiUsers } from "react-icons/hi";
 import { FaUserPlus } from "react-icons/fa";
-import { BsCardImage } from "react-icons/bs";
+import { BsCardImage} from "react-icons/bs";
+import {FaFileCsv} from 'react-icons/fa'
+import {HiOutlineDocumentText} from 'react-icons/hi'
+import {MdOutlineDriveFolderUpload} from 'react-icons/md'
 
 // Admin Imports
 import MainDashboard from "views/admin/default";
@@ -22,6 +25,7 @@ import SearchByImage from "views/admin/searchImage";
 //UserImports
 import VideoStream from "views/users/VideoStream";
 import CompareImage from "views/users/compareImage";
+import UploadFileCsv from 'views/admin/UploadFileCSV'
 
 // Auth Imports
 import SignInCentered from "views/auth/signIn";
@@ -40,6 +44,13 @@ const routes = [
     path: "/registro-nuevo-usuario",
     icon: <Icon as={MdUpload} width="20px" height="20px" color="inherit" />,
     component: DataTables,
+  },
+  {
+    name: "Agregar por carpeta",
+    layout: "/admin",
+    path: "/registro-file-csv",
+    icon: <Icon as={MdOutlineDriveFolderUpload} width="20px" height="20px" color="inherit" />,
+    component: UploadFileCsv,
   },
   // {
   //   name: "Video Stream",

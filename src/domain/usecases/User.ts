@@ -5,7 +5,7 @@ export default class UserUseCases implements IUserUseCases {
   async addUser(data: any): Promise<any> {
     return await this.userRepository.addUser(data);
   }
-  async searchByImage(data: any): Promise<any> {
-    return await this.userRepository.searchByImage(data);
+  async searchByImage(data: any,token:string): Promise<any> {
+    return await this.userRepository.searchByImage(data,token);
   }
 }
