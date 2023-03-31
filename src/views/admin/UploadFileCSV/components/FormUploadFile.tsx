@@ -58,7 +58,7 @@ const FormUploadFile = () => {
     const GetUploadCustom = ({meta,file}:IFileWithMeta): IUploadParams => {
 
       const body = new FormData()
-      body.append('files',file)
+      body.append('file',file)
       
       return {url:'http://localhost:8000/api/v0.1/folderUpload/folderUpload',method:'POST',body}
     }
