@@ -37,8 +37,6 @@ export default function UserReports() {
   };
 
   useEffect(() => {
-    
-    // console.log(di.session.verifyToken());
     if (users.length === 0) {
       dispatch(getUserPage(1));
     }
