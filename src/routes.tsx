@@ -26,6 +26,7 @@ import SearchByImage from "views/admin/searchImage";
 import VideoStream from "views/users/VideoStream";
 import CompareImage from "views/users/compareImage";
 import UploadFileCsv from 'views/admin/UploadFileCSV'
+import InformacionGeneral from 'views/admin/FormPr13'
 
 // Auth Imports
 import SignInCentered from "views/auth/signIn";
@@ -51,6 +52,13 @@ const routes = [
     path: "/registro-file-csv",
     icon: <Icon as={MdOutlineDriveFolderUpload} width="20px" height="20px" color="inherit" />,
     component: UploadFileCsv,
+  },
+  {
+    name: 'Informacion General',
+    layout:'/admin',
+    path: '/registro-informacion-general',
+    icon: <Icon as={MdOutlineDriveFolderUpload} width="20px" height="20px" color="inherit" />,
+    component: InformacionGeneral
   },
   // {
   //   name: "Video Stream",

@@ -18,7 +18,9 @@ const LayoutComponent = ({dropzoneProps,files,submitButton,extra:{maxFiles},inpu
 // TODO: Component Button Submit 
 const SubmitButton = ({content,onSubmit,files}:ISubmitButtonProps) => {
   const handleSubmit = () => onSubmit(files.filter(f => ['headers_received', 'done'].includes(f.meta.status)));
-  return  <Button variant={'brand'} ml='auto' onClick={handleSubmit} borderRadius="md" disabled={files.length > 0 ? false : true}>{content}</Button> 
+  return  (
+    <Button variant={'brand'} ml='auto' onClick={handleSubmit} borderRadius="md" disabled={files.length > 0 ? false : true}>{content}</Button> 
+  )
 }
 
 
@@ -42,15 +44,12 @@ const FormUploadFile = () => {
                 <Text  fontSize="2xl" fontWeight="bold" color={brandColor} textAlign={'center'}> Subir carpeta </Text> 
                 <Text  fontSize="md" fontWeight="500" color={brandColor} opacity='.5' textAlign={'center'}>Selecionar carpeta que contenga archivo .csv y sus imagenes</Text> 
             </Flex>
-            {/* @ts-expect-error */}
-            <input directory="" webkitdirectory="" type="file" hidden ref={(el) => {  
-              InputRef.current = el;
-            }} 
+            <input  type="file" hidden ref={(el) =>  InputRef.current = el } 
             onChange={async e => {
               const chosenFiles = await getFilesFromEvent(e)
               onFiles(chosenFiles as File[])
             }}
-            />
+            multiple />
           </>
         )
     }
