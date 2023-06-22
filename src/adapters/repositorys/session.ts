@@ -2,14 +2,14 @@ import { IStorage } from "adapters/infrastructure/interface/IStorage";
 import { IHttp } from "./../infrastructure/interface/iHttp";
 import { ISessionRepository } from "domain/usecases/repository-interfaces/iSessions";
 import { IUserParams, IUserDTO, IUserCreate } from "domain/DTO/user-dto";
-const URL = process.env.API_BACKEND_URL
+const URL = process.env.REACT_APP_API_BACKEND_URL
 
 export default class SessionRepository implements ISessionRepository {
   constructor(
     private readonly http: IHttp,
     private readonly storage: IStorage
   ) {}
-  
+
   async login(userDTO: IUserParams): Promise<IUserDTO> {
     const response = await this.http.request({
       method: "POST",
