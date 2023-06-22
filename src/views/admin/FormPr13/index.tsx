@@ -1,16 +1,14 @@
-import {Text,Box,Grid,SimpleGrid,GridItem,Image } from '@chakra-ui/react'
+import {FC} from 'react'
+import {Text,Box,Grid,SimpleGrid,GridItem,Image,TextProps, } from '@chakra-ui/react'
+// TODO: Custom hooks 
+import {useMediaQuery} from 'hooks/useMediaQuery'
 // TODO: Compoents
 import Card from 'components/card/Card' 
-
-const FormInformationTranslate = () => {
-    return (
-        <Box pt={{base:'130px',md:'80px',xl:'80px'}}>
-            <Card>
-                <Box bg={'brandScheme.500'}  px='2' py='2' color={'white'}>
-                    <Text fontWeight={'bold'} fontSize={'2xl'} >Informacion General</Text>
-                </Box>
-
-                <Grid  templateAreas={`
+/**
+ * 
+ * @returns 
+ * 
+ *  templateAreas={`
                         "identificacion  identificacion Imagen"
                         "NombreCiudadano NombreCiudadano Imagen"
                         "lugarNacimiento lugarNacimiento Imagen"
@@ -20,15 +18,127 @@ const FormInformationTranslate = () => {
                         "CallesNumeroCasa CallesNumeroCasa Imagen"
                         "InstruccionProfesion InstruccionProfesion Imagen"
                     `} 
-                templateColumns={'1fr 1fr 260px'}
+ */
+
+interface SubTextProp  extends TextProps{
+    text:string;
+    type:"SMALL" | "NORMAL"
+}
+
+const SubText:FC<SubTextProp>  = ({text,type,...props}) => {
+    
+    if(type == 'SMALL'){
+        return <Text fontWeight={'semibold'} fontSize='xs' color='gray.500' textTransform={'uppercase'} {...props} >{text}</Text>
+    }else if(type == 'NORMAL'){
+        return <Text fontWeight={'medium'} textTransform={'uppercase'} {...props} >{text}</Text>
+    }
+}
+
+
+const FormInformationTranslate = () => {
+    const mediaQuery = useMediaQuery('(min-width: 768px)')
+    return (
+        <Box pt={{base:'130px',md:'80px',xl:'80px'}}>
+            <Card>
+                <Box bg={'brandScheme.500'}  px='2' py='2' color={'white'}>
+                    <Text fontWeight={'bold'} fontSize={'2xl'} >Informacion General</Text>
+                </Box>
+
+                <Grid  templateAreas={{
+                    base:`
+                            "identificacion  identificacion Imagen"
+                            "NombreCiudadano NombreCiudadano Imagen"
+                            "lugarNacimiento lugarNacimiento Imagen"
+                            "fechaNacimientoNacionalidad fechaNacimientoNacionalidad Imagen"
+                            "SexoEstadoCivil SexoEstadoCivil Imagen"
+                            "Domicilio Domicilio Imagen"
+                            "CallesNumeroCasa CallesNumeroCasa Imagen"
+                            "InstruccionProfesion InstruccionProfesion Imagen"
+                    `,
+                    lg: `
+                        "identificacion  identificacion Imagen"
+                        "NombreCiudadano NombreCiudadano Imagen"
+                        "lugarNacimiento lugarNacimiento Imagen"
+                        "fechaNacimientoNacionalidad fechaNacimientoNacionalidad Imagen"
+                        "SexoEstadoCivil SexoEstadoCivil Imagen"
+                        "Domicilio Domicilio Imagen"
+                        "CallesNumeroCasa CallesNumeroCasa Imagen"
+                        "InstruccionProfesion InstruccionProfesion Imagen"
+                    `,
+                    sm:`
+                        "Imagen Imagen"
+                        "identificacion  identificacion "
+                        "NombreCiudadano NombreCiudadano "
+                        "lugarNacimiento lugarNacimiento "
+                        "fechaNacimientoNacionalidad fechaNacimientoNacionalidad "
+                        "SexoEstadoCivil SexoEstadoCivil "
+                        "Domicilio Domicilio "
+                        "CallesNumeroCasa CallesNumeroCasa "
+                        "InstruccionProfesion InstruccionProfesion "
+                    `,
+                }} 
+                templateColumns={{
+                    base:'1fr 1fr 260px',
+                    lg:'1fr 1fr 260px',
+                    sm:'1fr'
+                }}
                  px='2' py='2' border={'1px'} borderTop={'none'} 
                 >
-                 <GridItem area={'Imagen'}   >
+                    {
+                        !mediaQuery ? (
+                            <>
+                                <GridItem area={'Imagen'}  >
+                                    <Image src='https://avatars3.githubusercontent.com/u/100200?s=460&v=4' objectFit={'cover'} h='262px' />
+                                </GridItem>
+                                <GridItem area={'identificacion'}  >
+                                    <Text fontWeight={'semibold'} textTransform={'uppercase'} fontSize='xs' color='gray.500' >Identificacion:</Text>
+                                    <Text fontWeight={'medium'} >0123456789</Text>
+                                </GridItem>
+                                <GridItem area={'NombreCiudadano'}>
+                                    <Text fontWeight={'semibold'} textTransform={'uppercase'} fontSize='xs' color='gray.500'>Nombre Ciudadano:</Text>
+                                    <Text fontWeight={'medium'} textTransform={'uppercase'} display='inline-block'   width={{md:'25%',lg:'25%'}}>Mendieta Piedra Jorge Luis</Text>
+                                </GridItem>
+                                <GridItem area='lugarNacimiento'>
+                                    <SubText  type='SMALL' text="Lugar Nacimiento:"/>
+                                    <SubText text='Azuay/Cuenca/El Sagrado' type='NORMAL' />
+                                </GridItem>
+                                <GridItem area='fechaNacimientoNacionalidad'>
+                                    <SubText  type='SMALL' text="Fecha Nacimiento:"/>
+                                    <SubText text='28/08/1982' type='NORMAL' />
+                                    <SubText  type='SMALL' text="Nacionalidad:"/>
+                                    <SubText type='NORMAL' text='Ecuatoriana' />
+                                </GridItem>
+                                <GridItem area='SexoEstadoCivil'>
+                                    <SubText  type='SMALL' text="Sexo:"/>
+                                    <SubText  type='NORMAL' text='Masculino' />
+                                    <SubText  type='SMALL' text="Estado Civil:"/>
+                                    <SubText  type='NORMAL' text='SOLTERO' />
+                                </GridItem>
+                                <GridItem gridArea={'Domicilio'}>
+                                    <SubText  type='SMALL' text="Domicilio:"/>
+                                    <SubText  type='NORMAL' text='Pichincha/Quito/Kennedy' />
+                                </GridItem>
+                                <GridItem gridArea={'CallesNumeroCasa'}>
+                                    <SubText  type='SMALL' text="Calles:"/>
+                                    <SubText  type='NORMAL' text='De las almendras belladonas el' />
+                                    <SubText  type='SMALL' text="Numero Casa:"/>
+                                    <SubText  type='NORMAL' text="N54-09"/>
+                                </GridItem>
+                                <GridItem gridArea={'InstruccionProfesion'}>
+                                    <SubText type='SMALL' text={'Instruccion'} />
+                                    <SubText  type='NORMAL' text="SUPERior"/>
+                                    <SubText type='SMALL' text={'Profesion'} />
+                                    <SubText  type='NORMAL' text="Ingeniero"/>
+                                </GridItem>
+                            </>
+                        ): (
+                            <>
+                                <GridItem area={'Imagen'}   >
                     <Image src='https://avatars3.githubusercontent.com/u/100200?s=460&v=4' objectFit={'cover'} h='262px' />
                  </GridItem>
                 <GridItem area={'identificacion'}   >
                     <SimpleGrid columns={2}>
-                        <Box>
+                        <Box width={{sm:'100%'}}>
                             <Text fontWeight={'bold'} textTransform={'uppercase'} display='inline-block'   width={{md:'50%',lg:'50%'}}>Identificacion:</Text>
                             <Text fontWeight={'medium'} display='inline-block' width={{md:'50%',lg:'50%'}} >0123456789</Text>
                         </Box>
@@ -101,8 +211,10 @@ const FormInformationTranslate = () => {
                             <Text fontWeight={'medium'} textTransform={'uppercase'} display='inline-block' >Ingeniero</Text>
                         </Box>
                     </SimpleGrid>
-                </GridItem>
-                    
+                </GridItem>           
+                            </>
+                        )
+                    }
                 </Grid>
 
             </Card>
