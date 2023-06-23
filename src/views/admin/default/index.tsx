@@ -10,7 +10,7 @@ import { columnsDataCheck } from "views/admin/default/variables/columnsData";
 import CheckTable from "views/admin/default/components/CheckTable";
 // import TableUsers from "views/admin/default/components/TableUsers";
 import TableData from "views/admin/default/components/TableData";
-
+const URL = process.env.REACT_APP_API_BACKEND_URL
 
 export default function UserReports() {
   const fetchIdRef = useRef(0)
@@ -25,7 +25,7 @@ export default function UserReports() {
   const fetchAPIData = async (skip:number) => {
     try {
       setLoading(true);
-      const response = await fetch(`http://localhost:8000/api/v0.1/userpersistencia/get_users?n_page=${skip}`);
+      const response = await fetch(`${URL}/userpersistencia/get_users?n_page=${skip}`);
       const data = await response.json();
       setData(data.payload);
       setPageCount(data.total_pages);

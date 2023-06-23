@@ -1,6 +1,8 @@
 import { IStorage } from "./../infrastructure/interface/IStorage";
 import { IHttp } from "./../infrastructure/interface/iHttp";
 import { IUserRepository } from "domain/usecases/repository-interfaces/iUserRepository";
+const URL = process.env.REACT_APP_API_BACKEND_URL
+
 export default class UserRepository implements IUserRepository {
   constructor(
     private readonly http: IHttp,
@@ -10,7 +12,7 @@ export default class UserRepository implements IUserRepository {
 
   async addUser(data: any): Promise<any> {
     const response = await this.httpFormData.request({
-      url: "http://localhost:8000/api/v0.1/userpersistencia/addImage",
+      url: `${URL}/userpersistencia/addImage`,
       method: "POST", 
       body: data,
       headers: {},
@@ -19,7 +21,7 @@ export default class UserRepository implements IUserRepository {
   }
   async searchByImage(data: any,token:string): Promise<any> {
     const response = await this.httpFormData.request({
-      url: "http://localhost:8000/api/v0.1/userdetect/compareImageFaceRecognitionTwo",
+      url: `${URL}/userdetect/compareImageFaceRecognitionTwo`,
       method: "POST",
       body: data,
       headers: {

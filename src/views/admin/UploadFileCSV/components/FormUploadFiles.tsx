@@ -1,10 +1,13 @@
 import React,{useState} from 'react'
 import {Flex,Text,Button,useColorModeValue,Icon} from '@chakra-ui/react'
+
 // TODO: Hooks de chakraUi 
 import {useToast} from '@chakra-ui/react'
 import {useDropzone} from 'react-dropzone'
 // TODO: Icons 
 import {FiUploadCloud} from 'react-icons/fi'
+const URL = process.env.REACT_APP_API_BACKEND_URL
+
 
 const FormUploadMultiFiles = () => {
     // TODO: States
@@ -30,7 +33,7 @@ const FormUploadMultiFiles = () => {
           formData.append(`files`, file);
         });
     
-        await fetch('http://localhost:8000/api/v0.1/folderUpload/folderUploads',{
+        await fetch(`${URL}/folderUpload/folderUploads`,{
             method:'POST',
             headers:{
                 Accept: 'application/json',
@@ -46,7 +49,7 @@ const FormUploadMultiFiles = () => {
             variant:'left-accent',
             description:'Archivos subidos correctamente'
         })
-        await fetch('http://localhost:8000/api/v0.1/folderUpload/createUsersToFolderFields')
+        await fetch(`${URL}/folderUpload/createUsersToFolderFields`)
       };
     return (
         <>
