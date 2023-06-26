@@ -52,10 +52,10 @@ export default function RegistroUsers() {
   const sendData = (e: FormEvent<HTMLInputElement>) => {
     handleSubmit(async (data) => {
       const user_register = {
-        email: data.email,
-        password: data.password,
-        username: data.username,
-        rol: data.rol,
+        email: data?.email,
+        password: data?.password,
+        username: data?.username,
+        rol: data?.rol,
       };
       await di.session.register(user_register);
     })(e);
