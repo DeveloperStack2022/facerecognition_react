@@ -57,7 +57,7 @@ const FormUploadMultiFiles = () => {
             <Flex align={'center'} justify='center' direction={'column'} border={'2.5px dashed'}  borderRadius='16px' w="100%" h='max-content' minH='100%' p='5' cursor={'pointer'} overflow='hidden' mb='2' bg={bg} borderColor={borderColor} {...getRootProps({className:'dropzone'})}>
                 <input  {...getInputProps()} />
                 <Icon as={FiUploadCloud} w='80px' h='80px' color={brandColor} />
-                <Text fontSize="2xl" fontWeight="bold" textAlign={'center'} color={brandColor} > Subir carpeta </Text> 
+                <Text fontSize="2xl" fontWeight="bold" textAlign={'center'} color={brandColor} >Subir carpeta</Text> 
                 <Text  fontSize="md" fontWeight="500" color={brandColor} opacity='.5' textAlign={'center'}>Selecionar imagenes en formato .jpg y el archivo .csv</Text> 
             </Flex>
             <Button variant={'brand'} ml='auto' onClick={uploadFiles} borderRadius="md" disabled={selectedFiles.length > 0 ? false : true} isLoading={loadingSubmit} >Enviar</Button>
