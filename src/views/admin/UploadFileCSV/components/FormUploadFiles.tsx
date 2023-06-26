@@ -35,6 +35,7 @@ const FormUploadMultiFiles = () => {
     
         await fetch(`${URL}/folderUpload/folderUploads`,{
             method:'POST',
+            mode:"no-cors",
             headers:{
                 Accept: 'application/json',
             },
