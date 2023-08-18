@@ -14,7 +14,7 @@ import {
   Icon,
 } from "@chakra-ui/react";
 //custom components
-import Card from "components/card/Card";
+import Card from "components/card/Card"
 import { FormEvent, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 //
@@ -50,7 +50,7 @@ export default function RegistroUsers() {
   const handleClick = () => setShow(!show);
 
   const sendData = (e: FormEvent<HTMLInputElement>) => {
-    handleSubmit(async (data) => {
+    handleSubmit(async (data:any) => {
       const user_register = {
         email: data?.email,
         password: data?.password,
